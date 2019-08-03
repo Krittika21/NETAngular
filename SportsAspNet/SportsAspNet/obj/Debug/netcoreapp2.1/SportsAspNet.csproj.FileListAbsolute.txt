@@ -1,0 +1,14 @@
+C:\Users\krittika\Documents\practice\SportsAspNet\SportsAspNet\bin\Debug\netcoreapp2.1\SportsAspNet.deps.json
+C:\Users\krittika\Documents\practice\SportsAspNet\SportsAspNet\bin\Debug\netcoreapp2.1\SportsAspNet.runtimeconfig.json
+C:\Users\krittika\Documents\practice\SportsAspNet\SportsAspNet\bin\Debug\netcoreapp2.1\SportsAspNet.runtimeconfig.dev.json
+C:\Users\krittika\Documents\practice\SportsAspNet\SportsAspNet\bin\Debug\netcoreapp2.1\SportsAspNet.dll
+C:\Users\krittika\Documents\practice\SportsAspNet\SportsAspNet\obj\Debug\netcoreapp2.1\SportsAspNet.csprojAssemblyReference.cache
+C:\Users\krittika\Documents\practice\SportsAspNet\SportsAspNet\obj\Debug\netcoreapp2.1\SportsAspNet.csproj.CoreCompileInputs.cache
+C:\Users\krittika\Documents\practice\SportsAspNet\SportsAspNet\obj\Debug\netcoreapp2.1\SportsAspNet.RazorAssemblyInfo.cache
+C:\Users\krittika\Documents\practice\SportsAspNet\SportsAspNet\obj\Debug\netcoreapp2.1\SportsAspNet.RazorAssemblyInfo.cs
+C:\Users\krittika\Documents\practice\SportsAspNet\SportsAspNet\obj\Debug\netcoreapp2.1\SportsAspNet.AssemblyInfoInputs.cache
+C:\Users\krittika\Documents\practice\SportsAspNet\SportsAspNet\obj\Debug\netcoreapp2.1\SportsAspNet.AssemblyInfo.cs
+C:\Users\krittika\Documents\practice\SportsAspNet\SportsAspNet\obj\Debug\netcoreapp2.1\SportsAspNet.RazorTargetAssemblyInfo.cache
+C:\Users\krittika\Documents\practice\SportsAspNet\SportsAspNet\bin\Debug\netcoreapp2.1\SportsAspNet.pdb
+C:\Users\krittika\Documents\practice\SportsAspNet\SportsAspNet\obj\Debug\netcoreapp2.1\SportsAspNet.dll
+C:\Users\krittika\Documents\practice\SportsAspNet\SportsAspNet\obj\Debug\netcoreapp2.1\SportsAspNet.pdb

@@ -1,0 +1,17 @@
+div
+{
+    text-align: center;
+}
+button
+{
+    padding: 5px 15em;
+    border-radius: 12px;
+    margin-bottom: 3em;
+}
+.card
+{
+    position: fixed;
+    right: 15em;
+    left: 15em;
+    text-align: center;
+}
