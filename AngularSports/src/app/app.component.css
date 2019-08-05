@@ -1,0 +1,9 @@
+nav{
+    display: block;
+    width: 100%;
+    padding: 1em;
+    background-color: whitesmoke;
+}
+a{
+    margin-left: 2em;
+}

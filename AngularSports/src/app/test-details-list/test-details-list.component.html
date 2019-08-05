@@ -1,7 +1,7 @@
-<p>test-details-list works!</p>
-<!--<button type="button" onclick="alert('Hello World!')">Click Me!</button> -->
+<!--<p>test-details-list works!</p>
+<button type="button" onclick="alert('Hello World!')">Click Me!</button> -->
 <div>
-    <button type="button">CREATE NEW TEST</button>
+    <button type="button" (click)="forNewTest()">CREATE NEW TEST</button>
 </div>
  <div class="card">                  
     <table class="table">
@@ -13,12 +13,19 @@
         </tr>
     </thead>
         <tbody>
-           <!--  <tr *ngFor='let nameId of Name'>    
-                <td></td>
-                <td></td>
-                <td><button type="button" class="btn btn-secondary">Edit</button></td>
-                <td><button type="button" class="btn btn-danger">Delete</button></td>
-            </tr> -->
+            <tr>
+                <td>20-03-2019</td>
+                <td>6</td>
+                <td>Cooper Test</td>
+            </tr>
+            <tr>
+                <td>20-04-2019</td>
+                <td>10</td>
+                <td>Sprint Test</td>
+            </tr>
+            <!--  <tr *ngFor="let test of tests; index as testId">    
+                <td [routerLink]="['/tests', testId]">{{test.name}}</td> -->             
+            </tr>
     </tbody> 
     </table> 
 </div>
