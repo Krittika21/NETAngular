@@ -31,6 +31,9 @@ namespace SportsAspNet
             services.AddDbContext<SportsContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("SportsContext2")));
 
+            services.AddCors();
+
+
         }
 
         //private ServiceLifetime UseSqlServer()
@@ -45,6 +48,12 @@ namespace SportsAspNet
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(Options =>
+            Options.WithOrigins("http://localhost:4200")
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+
 
             app.UseMvc();
         }

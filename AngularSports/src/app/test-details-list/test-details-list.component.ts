@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { TestDetailsService } from '../shared/test-details.service';
+import { TestDetails } from '../shared/test-details.model';
 
 @Component({
   selector: 'app-test-details-list',
@@ -9,16 +11,24 @@ import { Router } from '@angular/router';
 export class TestDetailsListComponent implements OnInit {
   Id : number;
   Date : Date;
-  UserTests : string;
-  TestTypes : string;
+ /*  UserTests : string;
+  TestTypes : string; */
+  tests: Array<TestDetails>
 
-  constructor(private _router:Router) { }
+
+  constructor(private testDetailsService:TestDetailsService, private _router:Router) { }
 
   forNewTest(): void{
-    this._router.navigate(["/create test"])
+    this._router.navigate(["/create-test"])
+  }
+  forTestDetails():void{
+    this._router.navigate(["/athlete-details"])
   }
 
   ngOnInit() {
+    this.testDetailsService.getTests().subscribe((result: Array<TestDetails>) => {
+      this.tests = result;
+    });
   }
 
 }

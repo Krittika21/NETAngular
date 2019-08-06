@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TestDetailsService } from '../shared/test-details.service';
 
 @Component({
   selector: 'app-athlete-details',
@@ -8,7 +9,11 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AthleteDetailsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private service:TestDetailsService, private _router:Router) { }
+  
+  forNewAthlete(): void{
+    this._router.navigate(["/add-athlete"])
+  }
 
   ngOnInit() {
   }

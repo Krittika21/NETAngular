@@ -1,6 +1,6 @@
 export class TestDetails {
     Id : number;
     Date : Date;
-    UserTests : string;
-    TestTypes : string;
+    /* UserTests : string;
+    TestTypes : string; */
 }

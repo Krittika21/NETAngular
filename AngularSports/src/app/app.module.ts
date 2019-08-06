@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { HttpClientModule }    from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TestDetailsListComponent } from './test-details-list/test-details-list.component';
@@ -8,6 +8,7 @@ import { NewTestComponent } from './new-test/new-test.component';
 import { AthleteDetailsComponent } from './athlete-details/athlete-details.component';
 import { NewAthleteComponent } from './new-athlete/new-athlete.component';
 import { RouterModule } from '@angular/router';
+import { TestDetailsService } from './shared/test-details.service';
 
 @NgModule({
   declarations: [
@@ -15,18 +16,20 @@ import { RouterModule } from '@angular/router';
     TestDetailsListComponent,
     NewTestComponent,
     AthleteDetailsComponent,
-    NewAthleteComponent
+    NewAthleteComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
+  
     RouterModule.forRoot([
       { path: '', component: TestDetailsListComponent},
       { path: 'test/:testId', component: NewTestComponent},
       { path: 'testType/:testTypeId', component: NewAthleteComponent},
     ])
   ],
-  providers: [],
+  providers: [TestDetailsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

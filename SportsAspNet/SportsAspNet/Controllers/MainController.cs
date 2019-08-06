@@ -22,9 +22,11 @@ namespace SportsAspNet.Controllers
 
         // GET: api/Main
         [HttpGet]
-        public IEnumerable<TestDetailsList> GetTestDetails()
+        [Route("GetTest")]
+        public IActionResult GetTestDetails()
         {
-            return _context.TestDetails;
+            var test = _context.TestDetails.ToList();
+            return Ok(test);
         }
 
         // GET: api/Main/5
