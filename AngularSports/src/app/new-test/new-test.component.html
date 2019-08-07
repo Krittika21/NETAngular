@@ -1,16 +1,18 @@
 <h3>CREATE NEW TEST</h3>
-<form>
+
+    
     <label>Test Type</label>
     <br>
-    <select name="types">
+    <select name="TestName">
         <option>Sprint Test</option>
         <option>Cooper Test</option>
       </select>
     <br>
     <label>Date</label>
     <br>
-    <input type="date" name="DATE">
-</form>
-<div>
-    <button type="button">CREATE TEST</button>
+    <input type="date" name="Date" [(ngModel)]=test.Date class="form-control"/>
+    {{test.Date}}
+
+<div class="form-group">
+    <button type="button" (click)="onSubmit()">CREATE TEST</button>
 </div>

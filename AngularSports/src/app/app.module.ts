@@ -9,6 +9,8 @@ import { AthleteDetailsComponent } from './athlete-details/athlete-details.compo
 import { NewAthleteComponent } from './new-athlete/new-athlete.component';
 import { RouterModule } from '@angular/router';
 import { TestDetailsService } from './shared/test-details.service';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -22,6 +24,7 @@ import { TestDetailsService } from './shared/test-details.service';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
   
     RouterModule.forRoot([
       { path: '', component: TestDetailsListComponent},

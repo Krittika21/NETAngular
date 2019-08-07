@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SportsAspNet.Models;
+using SportsAspNet.ViewModels;
 
 namespace SportsAspNet.Controllers
 {
@@ -85,17 +86,31 @@ namespace SportsAspNet.Controllers
 
         // POST: api/Main
         [HttpPost]
-        public async Task<IActionResult> PostTestDetailsList([FromBody] TestDetailsList testDetailsList)
+        [Route("PostTest")]
+        public async Task<IActionResult> PostTestDetailsList([FromBody] CreateTestViewModel test)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            TestDetailsList newTest = new TestDetailsList {
+                Date = test.TestDate
+            };
+            TestDetailsList addedTest = _context.TestDetails.Add(newTest).Entity;
+            _context.SaveChanges();
 
-            _context.TestDetails.Add(testDetailsList);
+            TestType testType = _context.TestType.FirstOrDefault(x => x.TestName == test.TestType);
+
+            TestTypeMap testTypeMap = new TestTypeMap
+            {
+                TestTypeId = testType.ID,
+                TestId = addedTest.ID
+            };
+            _context.TestTypeMap.Add(testTypeMap);
+            //foreach (var item in testDetailsList.UserTests)
+            //{
+            //    _context.UserTestMap.Add(item);
+            //}
+
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTestDetailsList", new { id = testDetailsList.ID }, testDetailsList);
+            return Ok();
         }
 
         // DELETE: api/Main/5
