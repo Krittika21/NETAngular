@@ -14,13 +14,8 @@ export class TestDetailsService {
   constructor( private _http:HttpClient ) { }
 
    postTests(body: TestDetails){
-    return this._http.post(this.URL + '/Main/PostTest', body).subscribe(
-      result => {
-        console.log(result);
-      },
-      err => {
-        console.log(err);
-      });
+     debugger
+    return this._http.post(this.URL + '/Main/PostTest', body);
   } 
   getTestType(){
     return this._http.get(this.URL + "/Main/GetTestType")

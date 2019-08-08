@@ -1,18 +1,15 @@
 <h3>CREATE NEW TEST</h3>
-
-    
+<div>
     <label>Test Type</label>
     <br>
-    <select name="TestName">
-        <option>Sprint Test</option>
-        <option>Cooper Test</option>
-      </select>
+    <select name="TestName" [(ngModel)]="testType" class="form-control">
+        <option ng-repeat = "Let type of testType" [value]="testType.TestName">{{testType.TestName}}</option>  
+    </select>
     <br>
     <label>Date</label>
     <br>
-    <input type="date" name="Date" [(ngModel)]=test.Date class="form-control"/>
-    {{test.Date}}
-
+    <input type="datetime-local" name="Date" [(ngModel)]=test.Date class="form-control"/>{{test.Date}} 
+</div>
 <div class="form-group">
     <button type="button" (click)="onSubmit()">CREATE TEST</button>
 </div>

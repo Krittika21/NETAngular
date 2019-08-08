@@ -13,19 +13,39 @@ export class NewTestComponent implements OnInit {
   
   ID: number;
   TestName: string;
-  testType: Array<TestType>
-  test: TestDetails = new TestDetails();
+  testType: TestType;
+  test: TestDetails;
 
   constructor(private testDetailsService:TestDetailsService,
-    private _router:Router) { }
+    private _router:Router) { }    
   
-  ngOnInit() {
+  ngOnInit() 
+  {
+    this.test = 
+    {
+      Id:0,
+      Date: null,
+      TestType:0
+    }
     this.testDetailsService.getTestType().subscribe(
-      
-    )
+      result => 
+      {
+        this.testType = result as TestType;
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
   onSubmit(){
-    this.testDetailsService.postTests(this.test);
+    
+    this.testDetailsService.postTests(this.test).subscribe(
+      result => {
+        console.log(result);
+      },
+      err => {
+        console.log(err);
+      });
 
   }
 }

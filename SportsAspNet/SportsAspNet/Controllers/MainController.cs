@@ -23,6 +23,7 @@ namespace SportsAspNet.Controllers
 
         // GET: api/Main
         [HttpGet]
+        
         [Route("GetTest")]
         public IActionResult GetTestDetails()
         {
@@ -32,21 +33,12 @@ namespace SportsAspNet.Controllers
 
         // GET: api/Main/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetTestDetailsList([FromRoute] int id)
+        [Route("getTestType")]
+        public async Task<IActionResult> GetTestDetailsList([FromRoute] TestType type)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            
 
-            var testDetailsList = await _context.TestDetails.FindAsync(id);
-
-            if (testDetailsList == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(testDetailsList);
+            return Ok(type);
         }
 
         // PUT: api/Main/5
@@ -86,11 +78,12 @@ namespace SportsAspNet.Controllers
 
         // POST: api/Main
         [HttpPost]
+        
         [Route("PostTest")]
         public async Task<IActionResult> PostTestDetailsList([FromBody] CreateTestViewModel test)
         {
             TestDetailsList newTest = new TestDetailsList {
-                Date = test.TestDate
+                Date = test.Date
             };
             TestDetailsList addedTest = _context.TestDetails.Add(newTest).Entity;
             _context.SaveChanges();

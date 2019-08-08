@@ -12,11 +12,7 @@ import { TestDetails } from '../shared/test-details.model';
 export class TestDetailsListComponent implements OnInit {
   Id: number;
   Date: Date;
-  /*  UserTests : string;
-   TestTypes : string; */
-  tests: Array<TestDetails>
-
-
+  tests: Array<TestDetails>;
   constructor(private testDetailsService: TestDetailsService, 
     private _router: Router) { }
 
@@ -38,11 +34,7 @@ export class TestDetailsListComponent implements OnInit {
         console.log(err);
       });
   }
-  /* onSubmit(){
-    this.testDetailsService.postTests().subscribe(
-      result => {
-      this.tests = result as Array<TestDetails>;
-    }) */
-  }
+  
+}
 
 

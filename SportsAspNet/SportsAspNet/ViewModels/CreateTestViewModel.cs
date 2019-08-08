@@ -8,6 +8,6 @@ namespace SportsAspNet.ViewModels
     public class CreateTestViewModel
     {
         public string TestType { get; set; }
-        public DateTime TestDate { get; set; }
+        public DateTime Date { get; set; }
     }
 }
