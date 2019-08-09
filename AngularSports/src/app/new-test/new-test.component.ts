@@ -25,12 +25,13 @@ export class NewTestComponent implements OnInit {
     {
       Id:0,
       Date: null,
-      TestType:0
+      TestType:null
     }
     this.testDetailsService.getTestType().subscribe(
       result => 
       {
         this.testType = result as TestType;
+        console.log(this.testType);
       },
       err => {
         console.log(err);
@@ -46,6 +47,7 @@ export class NewTestComponent implements OnInit {
       err => {
         console.log(err);
       });
+      this._router.navigate(["/test-details"])
 
   }
 }

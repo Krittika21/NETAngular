@@ -10,11 +10,18 @@ import { environment } from 'src/environments/environment';
 })
 export class TestDetailsService {
   URL:string = "http://localhost:53629/api";
-
+  currentTestId: number;
   constructor( private _http:HttpClient ) { }
 
-   postTests(body: TestDetails){
-     debugger
+  setCurrentTestId(id: number){
+    this.currentTestId = id;
+  }
+
+  getCurrentTestId(){
+    return this.currentTestId;
+  }
+  
+  postTests(body: TestDetails){
     return this._http.post(this.URL + '/Main/PostTest', body);
   } 
   getTestType(){

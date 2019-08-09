@@ -2,8 +2,8 @@
 <div>
     <label>Test Type</label>
     <br>
-    <select name="TestName" [(ngModel)]="testType" class="form-control">
-        <option ng-repeat = "Let type of testType" [value]="testType.TestName">{{testType.TestName}}</option>  
+    <select type="input" name="TestType" [(ngModel)]=test.TestType class="form-control">
+        <option *ngFor = "let type of testType" >{{type.testName}}</option>  
     </select>
     <br>
     <label>Date</label>

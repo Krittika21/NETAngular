@@ -23,7 +23,6 @@ namespace SportsAspNet.Controllers
 
         // GET: api/Main
         [HttpGet]
-        
         [Route("GetTest")]
         public IActionResult GetTestDetails()
         {
@@ -32,12 +31,11 @@ namespace SportsAspNet.Controllers
         }
 
         // GET: api/Main/5
-        [HttpGet("{id}")]
+        [HttpGet]
         [Route("getTestType")]
-        public async Task<IActionResult> GetTestDetailsList([FromRoute] TestType type)
+        public async Task<IActionResult> GetTestDetailsList()
         {
-            
-
+            var type = await _context.TestType.ToListAsync();
             return Ok(type);
         }
 
@@ -96,10 +94,7 @@ namespace SportsAspNet.Controllers
                 TestId = addedTest.ID
             };
             _context.TestTypeMap.Add(testTypeMap);
-            //foreach (var item in testDetailsList.UserTests)
-            //{
-            //    _context.UserTestMap.Add(item);
-            //}
+            
 
             await _context.SaveChangesAsync();
 

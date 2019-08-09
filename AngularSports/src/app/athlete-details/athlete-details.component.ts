@@ -8,7 +8,7 @@ import { TestDetailsService } from '../shared/test-details.service';
   styleUrls: ['./athlete-details.component.css']
 })
 export class AthleteDetailsComponent implements OnInit {
-
+  currentTestId: number;
   constructor(private service:TestDetailsService, private _router:Router) { }
   
   forNewAthlete(): void{
@@ -16,6 +16,8 @@ export class AthleteDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.currentTestId = this.service.getCurrentTestId();
+    
   }
 
 }
