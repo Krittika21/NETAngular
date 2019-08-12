@@ -9,5 +9,6 @@ namespace SportsAspNet.ViewModels
     {
         public string TestType { get; set; }
         public DateTime Date { get; set; }
+        public int ID { get; set; }
     }
 }

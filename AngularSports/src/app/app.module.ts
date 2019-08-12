@@ -10,6 +10,8 @@ import { NewAthleteComponent } from './new-athlete/new-athlete.component';
 import { RouterModule } from '@angular/router';
 import { TestDetailsService } from './shared/test-details.service';
 import { FormsModule } from '@angular/forms';
+import { UsersListComponent } from './users/users-list/users-list.component';
+import { UsersModule } from './users/users.module';
 
 
 @NgModule({
@@ -18,13 +20,14 @@ import { FormsModule } from '@angular/forms';
     TestDetailsListComponent,
     NewTestComponent,
     AthleteDetailsComponent,
-    NewAthleteComponent,
+    NewAthleteComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    UsersModule,
   
     RouterModule.forRoot([
       { path: '', component: TestDetailsListComponent},

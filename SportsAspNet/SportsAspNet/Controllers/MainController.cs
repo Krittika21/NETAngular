@@ -24,10 +24,22 @@ namespace SportsAspNet.Controllers
         // GET: api/Main
         [HttpGet]
         [Route("GetTest")]
-        public IActionResult GetTestDetails()
+        public async Task<IActionResult> GetTestDetails()
         {
-            var test = _context.TestDetails.ToList();
-            return Ok(test);
+            var tests = await _context.TestDetails.ToListAsync();
+            List<CreateTestViewModel> list = new List<CreateTestViewModel>();
+            foreach (var item in tests)
+            {
+                var testTypeMap = _context.TestTypeMap.First(x => x.TestId == item.ID);
+                var testType = _context.TestType.First(x => x.ID == testTypeMap.TestTypeId);
+                list.Add(new CreateTestViewModel
+                {
+                    Date = item.Date,
+                    ID = item.ID,
+                    TestType = testType.TestName
+                });
+            }
+            return Ok(list);
         }
 
         // GET: api/Main/5
@@ -38,6 +50,24 @@ namespace SportsAspNet.Controllers
             var type = await _context.TestType.ToListAsync();
             return Ok(type);
         }
+
+        // GET: api/Main/5
+        //[HttpGet]
+        //[Route("getParticipants")]
+        //public async Task<IActionResult> GetParticipants()
+        //{
+        //    var type = await _context.TestType.ToListAsync();
+        //    return Ok(type);
+        //}
+
+        ////GET: api/Main/5
+        //[HttpGet]
+        //[Route("GetAthletes")]
+        //public async Task<IActionResult> GetAthletes()
+        //{
+        //    var athletes = await _context.TestType.ToListAsync();
+        //    return Ok(athletes);
+        //}
 
         // PUT: api/Main/5
         [HttpPut("{id}")]
@@ -76,7 +106,6 @@ namespace SportsAspNet.Controllers
 
         // POST: api/Main
         [HttpPost]
-        
         [Route("PostTest")]
         public async Task<IActionResult> PostTestDetailsList([FromBody] CreateTestViewModel test)
         {
@@ -94,12 +123,17 @@ namespace SportsAspNet.Controllers
                 TestId = addedTest.ID
             };
             _context.TestTypeMap.Add(testTypeMap);
-            
 
+            await _context.SaveChangesAsync();
+
+            addedTest.TestTypes = testTypeMap;
+            _context.TestDetails.Update(addedTest);
             await _context.SaveChangesAsync();
 
             return Ok();
         }
+        
+
 
         // DELETE: api/Main/5
         [HttpDelete("{id}")]

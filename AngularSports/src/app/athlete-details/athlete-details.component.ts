@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TestDetailsService } from '../shared/test-details.service';
+import { TestDetails } from '../shared/test-details.model';
+import { User } from '../shared/user.model';
 
 @Component({
   selector: 'app-athlete-details',
@@ -8,16 +10,32 @@ import { TestDetailsService } from '../shared/test-details.service';
   styleUrls: ['./athlete-details.component.css']
 })
 export class AthleteDetailsComponent implements OnInit {
+  test: TestDetails | undefined;
   currentTestId: number;
-  constructor(private service:TestDetailsService, private _router:Router) { }
+  details: Array<User>;
+  athletes: Array<AthleteDetailsComponent>;
+
+  constructor(private testDetailsService:TestDetailsService, private _router:Router, private router: ActivatedRoute) { }
   
   forNewAthlete(): void{
     this._router.navigate(["/add-athlete"])
   }
+  toDeleteTest()
+  {
+    this._router.navigate(["/test-details"])
+  }
+  GetAthletes(): void{
+    //this.test
+  }
 
   ngOnInit() {
-    this.currentTestId = this.service.getCurrentTestId();
-    
+
+    this.currentTestId = +this.router.snapshot.paramMap.get('id');
+    debugger;
+    console.log(this.currentTestId);
+    //this.testDetailsService.getAthletes().subscribe(
+     
+   // )
   }
 
 }

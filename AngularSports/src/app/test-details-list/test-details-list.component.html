@@ -15,19 +15,11 @@
         <tr *ngFor="let test of tests; index as testId" (click)="forTestDetails(test)">
             <td>{{test.date}}</td>  
             <td></td>
-            <td>{{test.testType}}</td>          
+            <td>
+                <a [routerLink]="['/athlete-details/',test.id]">{{test.testType}}</a>
+            </td>          
         </tr> 
-            <!-- <tr (click)="forTestDetails()">
-                <td>20-03-2019</td>
-                <td>6</td>
-                <td>Cooper Test</td>
-            </tr>
-            <tr>
-                <td>20-04-2019</td>
-                <td>10</td>
-                <td>Sprint Test</td>
-            </tr> -->
     </tbody> 
-</table> 
-</div>
+    </table> 
+ </div>
 </form>

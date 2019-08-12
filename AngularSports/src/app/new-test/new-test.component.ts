@@ -13,7 +13,7 @@ export class NewTestComponent implements OnInit {
   
   ID: number;
   TestName: string;
-  testType: TestType;
+  testType: Array<TestType>;
   test: TestDetails;
 
   constructor(private testDetailsService:TestDetailsService,
@@ -23,31 +23,34 @@ export class NewTestComponent implements OnInit {
   {
     this.test = 
     {
-      Id:0,
-      Date: null,
-      TestType:null
+      id:0,
+      date: null,
+      testType:null,
+      //testId: 0;
     }
+    //get test types 
     this.testDetailsService.getTestType().subscribe(
       result => 
       {
-        this.testType = result as TestType;
+        console.log("result");
+        this.testType = result as Array<TestType>;
         console.log(this.testType);
+        debugger;
       },
-      err => {
+      err => 
+      {
         console.log(err);
-      }
-    );
+      });
   }
-  onSubmit(){
-    
+  onSubmit()
+  {    
     this.testDetailsService.postTests(this.test).subscribe(
       result => {
         console.log(result);
+        this._router.navigate(["/test-details"]);
       },
       err => {
         console.log(err);
       });
-      this._router.navigate(["/test-details"])
-
   }
 }

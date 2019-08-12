@@ -1,5 +1,5 @@
 export class TestDetails {
-    Id : number;
-    Date : Date;
-    TestType : string; 
+    id : number;
+    date : Date;
+    testType : string; 
 }

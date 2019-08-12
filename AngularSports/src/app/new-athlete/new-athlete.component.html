@@ -1,16 +1,16 @@
 <h3>ADD NEW ATHLETE TO TEST</h3>
-<form>
+<form *ngIf = "test.testType == 'Cooper Test'">
     <label>Name</label>
     <br>
-    <select name="name">
-        <option>Alan Marker</option>
-        <option>Robert Downey Jr.</option>
+    <select type="input" name="name" [(ngModel)] = users.name class="form-control">
+        <option *ngFor = "let user of users">{{user.name}}</option>
       </select>
     <br>
+    
     <label>Distance (meter)</label>
     <br>
-    <input type="distance" name="Distance" placeholder="0">
+    <input type="distance" name="Distance" [(ngModel)]=users.CTDistance class="form-control" placeholder="0">
 </form>
-<div>
-    <button type="button">Save</button>
+<div class="form-group">
+    <button type="button" (click) = "Submit()">SAVE</button>
 </div>

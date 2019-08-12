@@ -13,22 +13,36 @@ export class TestDetailsService {
   currentTestId: number;
   constructor( private _http:HttpClient ) { }
 
-  setCurrentTestId(id: number){
+  setCurrentTestId(id: number)
+  {
     this.currentTestId = id;
   }
 
-  getCurrentTestId(){
+  getCurrentTestId()
+  {
     return this.currentTestId;
+    debugger
   }
-  
-  postTests(body: TestDetails){
+  //post
+  postTests(body: TestDetails)
+  {
     return this._http.post(this.URL + '/Main/PostTest', body);
-  } 
-  getTestType(){
-    return this._http.get(this.URL + "/Main/GetTestType")
   }
+  //get
   getTests()
   {
      return this._http.get(this.URL + "/Main/GetTest");
   }
+  //get
+  /* getParticipants()
+  {
+    return this._http.get(this)
+  } */
+  //get 
+  getTestType()
+  {
+    return this._http.get(this.URL + "/Main/GetTestType")
+  } 
+  //get
+  
 }

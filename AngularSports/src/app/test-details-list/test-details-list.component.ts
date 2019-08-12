@@ -14,6 +14,7 @@ export class TestDetailsListComponent implements OnInit {
   Id: number;
   Date: Date;
   tests: Array<TestDetails>;
+  teststype: any;
   
   constructor(private testDetailsService: TestDetailsService, 
     private _router: Router) { }
@@ -22,20 +23,31 @@ export class TestDetailsListComponent implements OnInit {
     this._router.navigate(["/create-test"])
   }
   forTestDetails(test: TestDetails): void {
-    this.testDetailsService.setCurrentTestId(test.Id);
-    this._router.navigate(["/athlete-details"])
+    this.testDetailsService.setCurrentTestId(test.id);
+    debugger
+    this._router.navigate(["/athlete-details/:id"])
   }
 
   ngOnInit() {
     this.testDetailsService.getTests().subscribe(
-      result => {
+      (result: Array<TestDetails>) => {
         console.log("result");
-        this.tests = result as Array<TestDetails>;
+        this.tests = result;
         console.log(this.tests);
       },
       err => {
         console.log(err);
       });
+       this.testDetailsService.getTestType().subscribe(
+        result => {
+          console.log("result");
+          this.teststype = result as Array<TestDetails>;
+          console.log(this.tests);
+      },
+      err => {
+        console.log(err);
+      }); 
+      
   }
   
 }
