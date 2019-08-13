@@ -17,15 +17,13 @@ export class TestDetailsListComponent implements OnInit {
   teststype: any;
   
   constructor(private testDetailsService: TestDetailsService, 
-    private _router: Router) { }
+    private _router : Router) { }
 
   forNewTest(): void {
     this._router.navigate(["/create-test"])
   }
   forTestDetails(test: TestDetails): void {
     this.testDetailsService.setCurrentTestId(test.id);
-    debugger
-    this._router.navigate(["/athlete-details/:id"])
   }
 
   ngOnInit() {

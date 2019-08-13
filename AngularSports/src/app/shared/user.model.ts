@@ -1,8 +1,4 @@
 export class User {
-    id:number;
-    name:string;
-    CTDistance:number;
-    STTime:number;
-    fitnessRating:string;
+    ID:number;
     userType:string;
 }

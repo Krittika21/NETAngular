@@ -29,13 +29,7 @@ export class AthleteDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.currentTestId = +this.router.snapshot.paramMap.get('id');
-    debugger;
-    console.log(this.currentTestId);
-    //this.testDetailsService.getAthletes().subscribe(
-     
-   // )
+    console.log(this.currentTestId);   
   }
-
 }

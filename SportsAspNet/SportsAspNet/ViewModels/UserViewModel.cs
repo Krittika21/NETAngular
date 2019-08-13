@@ -5,11 +5,10 @@ using System.Threading.Tasks;
 
 namespace SportsAspNet.ViewModels
 {
-    public class AthletesViewModel
+    public class UserViewModel
     {
-        public double? CTDistance { get; set; }
-        public double? STTime { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
-        public string fitnessRating { get; set; }
+        public string userType { get; set; }
     }
 }

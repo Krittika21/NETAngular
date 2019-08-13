@@ -1,0 +1,17 @@
+<p>new-users works!</p>
+<h3>CREATE NEW USER</h3>
+<div>
+    <label>User Name</label>
+    <br>
+    <input type="input" name="Name" [(ngModel)]=newUser.Name class="form-control"/>
+        {{newUser.Name}} 
+    <br>
+    <label>User Type</label>
+    <br>
+    <select type="userType" name="userType" [(ngModel)]=newUser.userType class="form-control">
+        <option *ngFor = "let type of UserTypeE" > {{type.value}} </option>
+        </select>
+</div>
+<div class="form-group">
+    <button type="button" (click)="onSubmit()">CREATE USER</button>
+</div>

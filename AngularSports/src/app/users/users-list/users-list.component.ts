@@ -27,7 +27,6 @@ export class UsersListComponent implements OnInit {
     this.userDetailsService.getAthletes().subscribe(
       (result: Array<User>) => {
         console.log("result");
-        debugger;
         this.users = result;
         console.log(this.users);
         debugger;
@@ -37,5 +36,8 @@ export class UsersListComponent implements OnInit {
       }
     );
   }
-
+  forNewUser()
+  {
+    this._router.navigate(["/new-users"])
+  }
 }

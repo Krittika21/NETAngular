@@ -29,6 +29,13 @@ namespace SportsAspNet.Controllers
             var athletes = await _context.User.ToListAsync();
             return Ok(athletes);
         }
+        [HttpGet]
+        [Route("GetUsers")]
+        public async Task<IActionResult> GetUsers()
+        {
+            var users = await _context.User.ToListAsync();
+            return Ok(users);
+        }
 
         // GET: api/Users/5
         [HttpGet("{id}")]
@@ -88,11 +95,24 @@ namespace SportsAspNet.Controllers
         //postAthletes
         [HttpPost]
         [Route("postAthletes")]
-        public async Task<IActionResult> PostAthletesList([FromBody] AthletesViewModel athletesView)
+        public async Task<IActionResult> postAthletes([FromBody] AthletesViewModel athletesView)
         {
             Users user = new Users
             {
-                Name = athletesView.AName
+                Name = athletesView.Name
+            };
+            Users users = _context.User.Add(user).Entity;
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        //postUsers
+        [Route("postUsers")]
+        public async Task<IActionResult> postUsers([FromBody] UserViewModel userViewModel)
+        {
+            Users user = new Users
+            {
+                Name = userViewModel.Name
             };
             Users users = _context.User.Add(user).Entity;
             await _context.SaveChangesAsync();

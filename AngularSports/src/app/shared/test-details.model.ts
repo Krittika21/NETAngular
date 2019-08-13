@@ -1,5 +1,5 @@
 export class TestDetails {
     id : number;
-    date : Date;
+    Date : Date;
     testType : string; 
 }

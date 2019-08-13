@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from './user.model';
+import { UserTypeMap } from './user-type-map.model';
+import { UserDetails } from './user-details.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,13 +12,25 @@ export class UserDetailsService {
   
   constructor( private _http:HttpClient) { }
 
+//ATHLETES
 getAthletes()
 {
   return this._http.get(this.URL + "/Users/GetAthletes")
 }
- postAthletes(body: User)
+postAthletes(body: UserTypeMap)
 {
-  return this._http.get(this.URL + "/Users/PostAthletes");
+  debugger;
+  return this._http.post(this.URL + "/Users/postAthletes", body);
+}
+
+//USERS
+GetUsers()
+{
+  return this._http.get(this.URL + "/Users/GetUsers")
+}
+postUsers(body:UserDetails)
+{
+  return this._http.post(this.URL + "/Users/postUsers", body)
 }
 
 } 

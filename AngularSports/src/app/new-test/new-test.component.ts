@@ -24,12 +24,13 @@ export class NewTestComponent implements OnInit {
     this.test = 
     {
       id:0,
-      date: null,
+      Date: null,
       testType:null,
       //testId: 0;
     }
     //get test types 
-    this.testDetailsService.getTestType().subscribe(
+    this.testDetailsService.getTestType().
+    subscribe(
       result => 
       {
         console.log("result");
@@ -44,6 +45,7 @@ export class NewTestComponent implements OnInit {
   }
   onSubmit()
   {    
+    debugger;
     this.testDetailsService.postTests(this.test).subscribe(
       result => {
         console.log(result);

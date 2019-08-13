@@ -11,3 +11,4 @@ C:\Users\krittika\Documents\practice\SportsAspNet\SportsAspNet\obj\Debug\netcore
 C:\Users\krittika\Documents\practice\SportsAspNet\SportsAspNet\bin\Debug\netcoreapp2.1\SportsAspNet.pdb
 C:\Users\krittika\Documents\practice\SportsAspNet\SportsAspNet\obj\Debug\netcoreapp2.1\SportsAspNet.dll
 C:\Users\krittika\Documents\practice\SportsAspNet\SportsAspNet\obj\Debug\netcoreapp2.1\SportsAspNet.pdb
+C:\Users\krittika\Documents\practice\SportsAspNet\SportsAspNet\obj\Debug\netcoreapp2.1\SportsAspNet.csprojAssemblyReference.cache

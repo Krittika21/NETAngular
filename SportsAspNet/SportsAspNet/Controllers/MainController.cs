@@ -59,16 +59,6 @@ namespace SportsAspNet.Controllers
         //    var type = await _context.TestType.ToListAsync();
         //    return Ok(type);
         //}
-
-        ////GET: api/Main/5
-        //[HttpGet]
-        //[Route("GetAthletes")]
-        //public async Task<IActionResult> GetAthletes()
-        //{
-        //    var athletes = await _context.TestType.ToListAsync();
-        //    return Ok(athletes);
-        //}
-
         // PUT: api/Main/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTestDetailsList([FromRoute] int id, [FromBody] TestDetailsList testDetailsList)

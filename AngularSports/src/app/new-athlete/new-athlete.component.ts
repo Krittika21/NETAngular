@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { stringify } from 'querystring';
 import { User } from '../shared/user.model';
 import { UserDetailsService } from '../shared/user-details.service';
+import { UserTypeMap } from '../shared/user-type-map.model';
 
 @Component({
   selector: 'app-new-athlete',
@@ -15,47 +16,46 @@ Name: string;
 CTDistance: number;
 STTime: number;
 FitnessRating: string;
-testList: User;
+athletes: UserTypeMap;
 users: Array<User>;
+isAvailable : boolean;
 
-  constructor(private userDetailsService: UserDetailsService, private _router: Router) { }
+
+  constructor(private userDetailsService: UserDetailsService, private _router: Router) 
+  {
+    this.isAvailable = false;
+  }
   
   ngOnInit() {
-    this.testList =
+    this.athletes =
     {
-      id:0,
-      name: null,
+      AName:null,
       CTDistance: 0,
       STTime: 0,
-      fitnessRating: null,
-      userType:null
+      fitnessRating: null
     }
     this.userDetailsService.getAthletes().subscribe(
-      (result: Array<User>) => {
+      result  => {
         console.log("result");
-        debugger;
-        this.users = result;
+        this.users = result as Array<User>;
         console.log(this.users);
-        debugger;
+        this.isAvailable = true;
+      },
+      err => {
+        console.log(err);
+      });
+  }
+  onSubmit()
+  {
+    this.userDetailsService.postAthletes(this.athletes).subscribe(
+      result=> {
+        console.log(result);
+        this._router.navigate(["/athlete-details/:id"]);
       },
       err => {
         console.log(err);
       }
     );
-
-  }
-  Submit()
-  {
-    this.userDetailsService.postAthletes(this.testList).subscribe(
-      result=> {
-        console.log(result);
-        debugger;
-        this._router.navigate(["/althletes-details"]);
-      },
-      err => {
-        console.log(err);
-      }
-    ); 
   }
 
 }

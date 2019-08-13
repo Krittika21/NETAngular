@@ -1,0 +1,31 @@
+h3
+{
+    text-align: center;
+    margin-bottom: 3em;
+    margin-top: 2em;
+}
+form
+{
+    text-align: center;
+}
+div
+{
+    margin-top: 50px;
+    text-align: center;   
+}
+.form-control
+{
+    text-align: center; 
+}
+input{
+    width: 20%;
+}
+select{
+    width: 20%;
+    margin-bottom: 2em;
+}
+button
+{
+    padding: 5px 5em;
+    border-radius: 12px;
+}
