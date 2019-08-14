@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 
 export enum TypeOfUsers
 {
-    Coach,
+    Coach ,
     Athlete
 }
 @Component({
@@ -14,7 +14,7 @@ export enum TypeOfUsers
   styleUrls: ['./users-list.component.css']
 })
 export class UsersListComponent implements OnInit {
-  //modes = FormAction;
+  
   id:number;
   name:string;
   users: Array<User>;
@@ -29,12 +29,10 @@ export class UsersListComponent implements OnInit {
         console.log("result");
         this.users = result;
         console.log(this.users);
-        debugger;
       },
       err => {
         console.log(err);
-      }
-    );
+      });
   }
   forNewUser()
   {

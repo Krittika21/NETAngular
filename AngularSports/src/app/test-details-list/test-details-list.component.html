@@ -12,9 +12,13 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let test of tests; index as testId" (click)="forTestDetails(test)">
-            <td>{{test.date}}</td>  
-            <td></td>
+        <tr *ngFor="let test of tests; index as testId">
+            <td>
+                    <a [routerLink]='["/athlete-details/",test.id]'>{{test.date}}</a>
+                </td>  
+            <td>
+                    <a [routerLink]='["/athlete-details/",test.id]'>{{test}}</a>
+            </td>
             <td>
                 <a [routerLink]='["/athlete-details/",test.id]'>{{test.testType}}</a>
             </td>          

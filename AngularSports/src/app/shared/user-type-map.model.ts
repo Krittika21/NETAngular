@@ -1,5 +1,5 @@
 export class UserTypeMap {
-    AName: string;
+    Name: string;
     CTDistance?: number;
     STTime?:number;
     fitnessRating:string;

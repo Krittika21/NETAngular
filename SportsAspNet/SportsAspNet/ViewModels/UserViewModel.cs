@@ -9,6 +9,6 @@ namespace SportsAspNet.ViewModels
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string userType { get; set; }
+        public string UserType { get; set; }
     }
 }

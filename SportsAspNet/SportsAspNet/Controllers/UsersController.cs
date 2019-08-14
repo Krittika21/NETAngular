@@ -26,7 +26,8 @@ namespace SportsAspNet.Controllers
         [Route("GetAthletes")]
         public async Task<IActionResult> GetAthletes()
         {
-            var athletes = await _context.User.ToListAsync();
+
+            var athletes = await _context.User.AsQueryable().Where(x => x.userType == "Athlete").ToListAsync();
             return Ok(athletes);
         }
         [HttpGet]
@@ -94,16 +95,22 @@ namespace SportsAspNet.Controllers
         // POST: api/Users
         //postAthletes
         [HttpPost]
-        [Route("postAthletes")]
-        public async Task<IActionResult> postAthletes([FromBody] AthletesViewModel athletesView)
+        [Route("postAthletes/{userId}/{testId}")]
+        public async Task<IActionResult> postAthletes(int userId, int testId)
         {
-            Users user = new Users
+            var test = await _context.TestDetails.FirstOrDefaultAsync(x => x.ID == testId);
+            var user = await _context.User.FirstOrDefaultAsync(x => x.ID == userId);
+            var userTypeMap = await _context.UserTestMap.AsQueryable().Add(test, user).Entity();
+            //var testType = await _context.TestType.FirstOrDefaultAsync(t => t.ID == testTypeMap.TestTypeId);
+            var athleteMap = new AthletesViewModel
             {
-                Name = athletesView.Name
+                TestId = testId,
+                UserId =userId
+               
             };
-            Users users = _context.User.Add(user).Entity;
-            await _context.SaveChangesAsync();
-            return Ok();
+            _context.AthletesViewModel.Add(athleteMap);
+            return Ok(athleteMap);
+            
         }
 
         //postUsers
@@ -112,11 +119,12 @@ namespace SportsAspNet.Controllers
         {
             Users user = new Users
             {
-                Name = userViewModel.Name
+                Name = userViewModel.Name,
+                userType = userViewModel.UserType//.OfType(string)//.Where(t => t.ToString())
             };
-            Users users = _context.User.Add(user).Entity;
+            _context.User.Add(user);
             await _context.SaveChangesAsync();
-            return Ok();
+            return Ok(user);
         }
 
         // DELETE: api/Users/5

@@ -29,7 +29,7 @@ isAvailable : boolean;
   ngOnInit() {
     this.athletes =
     {
-      AName:null,
+      Name:null,
       CTDistance: 0,
       STTime: 0,
       fitnessRating: null
@@ -50,7 +50,7 @@ isAvailable : boolean;
     this.userDetailsService.postAthletes(this.athletes).subscribe(
       result=> {
         console.log(result);
-        this._router.navigate(["/athlete-details/:id"]);
+        this._router.navigate(["/athlete-details"]);
       },
       err => {
         console.log(err);

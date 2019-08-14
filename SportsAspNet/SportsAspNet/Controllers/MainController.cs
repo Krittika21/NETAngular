@@ -36,6 +36,7 @@ namespace SportsAspNet.Controllers
                 {
                     Date = item.Date,
                     ID = item.ID,
+                    
                     TestType = testType.TestName
                 });
             }
@@ -49,6 +50,21 @@ namespace SportsAspNet.Controllers
         {
             var type = await _context.TestType.ToListAsync();
             return Ok(type);
+        }
+
+        [HttpGet]
+        [Route("getCurrentTest/{id}")]
+        public async Task<IActionResult> getCurrentTest(int id)
+        {
+            var test = await _context.TestDetails.FirstOrDefaultAsync(x => x.ID == id);
+            var testTypeMap = await _context.TestTypeMap.FirstOrDefaultAsync(s => s.TestId == id);
+            var testType = await _context.TestType.FirstOrDefaultAsync(t => t.ID == testTypeMap.TestTypeId);
+            var testView = new CreateTestViewModel {
+                ID = id,
+                Date = test.Date,
+                TestType = testType.TestName
+            };
+            return Ok(testView);
         }
 
         // GET: api/Main/5

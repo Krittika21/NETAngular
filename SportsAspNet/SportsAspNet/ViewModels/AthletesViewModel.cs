@@ -11,5 +11,7 @@ namespace SportsAspNet.ViewModels
         public double? STTime { get; set; }
         public string Name { get; set; }
         public string fitnessRating { get; set; }
+        public int TestId { get; set; }
+        public int UserId { get; set; }
     }
 }

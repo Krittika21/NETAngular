@@ -11,7 +11,7 @@ namespace SportsAspNet.Models
         [Key]
         public int ID { get; set; }
         public string Name { get; set; }
-        public TypeOfUsers UserType { get; set; }
+        public string userType { get; set; }
         public virtual ICollection<UserTypeMap> UserTest { get; set; }
     }
 }

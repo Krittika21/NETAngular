@@ -34,16 +34,15 @@ export class TestDetailsService {
   {
      return this._http.get(this.URL + "/Main/GetTest");
   }
-  //get
-  /* getParticipants()
-  {
-    return this._http.get(this)
-  } */
+  
   //get 
   getTestType()
   {
     return this._http.get(this.URL + "/Main/GetTestType")
   } 
   //get
-  
+  getCurrentTest(id)
+  {
+    return this._http.get(this.URL + "/Main/getCurrentTest/"+id);
+  }
 }
