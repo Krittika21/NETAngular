@@ -12,8 +12,9 @@ import { UserTypeMap } from '../shared/user-type-map.model';
   styleUrls: ['./athlete-details.component.css']
 })
 export class AthleteDetailsComponent implements OnInit {
-  test: TestDetails | undefined;
+  test: TestDetails;
   currentTestId: number;
+  
   details: Array<User>;
   athleteMap: Array<UserTypeMap>;
   //athletes: Array<AthleteDetailsComponent>;
@@ -26,7 +27,7 @@ export class AthleteDetailsComponent implements OnInit {
   constructor(private userDetailsService:UserDetailsService, private testDetailsService:TestDetailsService, private _router:Router, private router: ActivatedRoute) { }
   
   forNewAthlete(): void{
-    this._router.navigate(["/add-athlete"])
+    this._router.navigate(["test/" + this.currentTestId+ "/add-athlete"])
   }
   toDeleteTest()
   {
@@ -45,20 +46,12 @@ export class AthleteDetailsComponent implements OnInit {
       (result: Array<User>) => {
         console.log("result");
         this.details = result;
-      
+       
         console.log(this.details);
       },
       err => {
         console.log(err);
-      });
-      this.userDetailsService.getAthletes().subscribe(
-        (result: Array<UserTypeMap>) => {
-          console.log("result");
-          this.athleteMap = result;
-          console.log(this.athleteMap);
-        },
-        err => {
-          console.log(err);
-        });
+      }); 
+
   }
 }

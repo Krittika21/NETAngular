@@ -95,22 +95,26 @@ namespace SportsAspNet.Controllers
         // POST: api/Users
         //postAthletes
         [HttpPost]
-        [Route("postAthletes/{userId}/{testId}")]
-        public async Task<IActionResult> postAthletes(int userId, int testId)
+        [Route("postAthletes/{TestId}")]
+        public async Task<IActionResult> PostAthletes([FromBody] AthletesViewModel athletesViewModel)
         {
-            var test = await _context.TestDetails.FirstOrDefaultAsync(x => x.ID == testId);
-            var user = await _context.User.FirstOrDefaultAsync(x => x.ID == userId);
-            var userTypeMap = await _context.UserTestMap.AsQueryable().Add(test, user).Entity();
-            //var testType = await _context.TestType.FirstOrDefaultAsync(t => t.ID == testTypeMap.TestTypeId);
-            var athleteMap = new AthletesViewModel
+            var User = _context.User.Where(u => u.Name.Equals(athletesViewModel.Name)).Select(u => u.ID).First();
+
+            UserTypeMap userTypeMap = new UserTypeMap();
+            userTypeMap.TestId = athletesViewModel.TestId;
+            userTypeMap.UserId = User;
+            if (athletesViewModel.CTDistance == null)
             {
-                TestId = testId,
-                UserId =userId
-               
-            };
-            _context.AthletesViewModel.Add(athleteMap);
-            return Ok(athleteMap);
-            
+                userTypeMap.STTime = athletesViewModel.STTime;
+            }
+            else {
+                userTypeMap.CTDistance = athletesViewModel.CTDistance;
+            }
+
+
+            await _context.AddAsync(userTypeMap);
+            await _context.SaveChangesAsync();
+            return Ok(userTypeMap);
         }
 
         //postUsers
@@ -120,7 +124,7 @@ namespace SportsAspNet.Controllers
             Users user = new Users
             {
                 Name = userViewModel.Name,
-                userType = userViewModel.UserType//.OfType(string)//.Where(t => t.ToString())
+                userType = userViewModel.UserType
             };
             _context.User.Add(user);
             await _context.SaveChangesAsync();

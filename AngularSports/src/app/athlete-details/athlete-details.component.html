@@ -1,4 +1,4 @@
-<h2>{{test.testType}} {{test.date}}</h2>
+<h2>{{test?.testType}} {{test?.date}}</h2> 
 <div class="card">                  
     <table class="table">
     <thead>
@@ -9,12 +9,12 @@
         </tr>
     </thead>
         <tbody>
-            <tr *ngFor="let items of athleteMap ; index as id">
+            <tr *ngFor="let items of athleteMap; index as id">
                     <td>
-                            <a [routerLink]='["/edit-athlete/",items.id]'>{{items.Name}}</a>
+                            <a [routerLink]='["/edit-athlete/"]'>{{items.Name}}</a>
                     </td>
                     <td>
-                            <a [routerLink]='["/edit-athlete/",items.id]'>{{items.CTDistance}}</a>
+                            <a [routerLink]='["/edit-athlete/"]'>{{items.CTDistance}}</a>
                     </td>
                     <td>
                             <a [routerLink]='["/edit-athlete/",items.id]'>{{items.fitnessRating}}</a>
@@ -27,5 +27,7 @@
     <button type="button" (click)="forNewAthlete()">ADD NEW ATHLETE TO TEST</button>
 </div>
 <div class="button2">
-    <button type="button" (click)="toDeleteTest()">DELETE TEST</button>
+    <button type="button">
+        <a [routerLink] = '["/test-details-list"]'>DELETE TEST</a>
+    </button>
 </div>

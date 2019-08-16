@@ -1,16 +1,17 @@
 <h3>ADD NEW ATHLETE TO TEST</h3>
 <div *ngIf="isAvailable">
-    <form>
-        <label>Name</label>
-        <br>
-        <select type="input" name="AName" [(ngModel)]= athletes.AName class="form-control">
+    <form action="form-control justify-content-center">
+        <input type="hidden" [(ngModel)]= athletes.testId name="testId"/>
+    <label>Name</label>
+    <div class="form-group col-md-12">
+        <select type="input" name="Name" [(ngModel)]= athletes.Name class="form-control justify-content-center">
             <option *ngFor="let user of users">{{user.name}}</option>
         </select>
-        <br>
-
-        <label>Distance (meter)</label>
-        <br>
-        <input type="distance" name="CTDistance" [(ngModel)]=athletes.CTDistance class="form-control" placeholder="0">
+    </div>
+    <label>Distance (meter)</label>
+    <div class="form-group col-md-12">
+        <input type="distance" name="CTDistance" [(ngModel)]=athletes.CTDistance class="form-control justify-content-center" placeholder="0">
+    </div>
     </form>
     <div class="form-group">
         <button type="button" (click)="onSubmit()">SAVE</button>

@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'test-details' , component: TestDetailsListComponent},
   { path: 'create-test', component: NewTestComponent},
   { path: 'athlete-details/:id', component:AthleteDetailsComponent},
-  { path: 'add-athlete', component:NewAthleteComponent},
+  { path: 'test/:testId/add-athlete', component:NewAthleteComponent},
   { path: 'add-test', component:TestDetailsListComponent},
   { path: 'users-list', component:UsersListComponent},
   { path: 'new-users', component:NewUsersComponent}

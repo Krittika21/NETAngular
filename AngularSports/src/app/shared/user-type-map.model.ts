@@ -3,4 +3,5 @@ export class UserTypeMap {
     CTDistance?: number;
     STTime?:number;
     fitnessRating:string;
+    testId:number;
 }

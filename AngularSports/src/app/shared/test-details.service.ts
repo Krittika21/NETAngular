@@ -21,12 +21,10 @@ export class TestDetailsService {
   getCurrentTestId()
   {
     return this.currentTestId;
-    debugger
   }
   //post
   postTests(body: TestDetails)
   {
-    debugger;
     return this._http.post(this.URL + '/Main/PostTest', body);
   }
   //get
@@ -44,5 +42,10 @@ export class TestDetailsService {
   getCurrentTest(id)
   {
     return this._http.get(this.URL + "/Main/getCurrentTest/"+id);
+  }
+  //Delete
+  deleteTest()
+  {
+    return this._http.delete(this.URL + "/Main/DeleteTest");
   }
 }

@@ -64,13 +64,6 @@ export class NewUsersComponent implements OnInit {
       result => 
       {
         console.log(this.newUser);
-        /* this.users =result as Array<TypeOfUsers>;
-        this.users.forEach(type => {
-          type.users = this.UserTypeE.filter(t => t.key == type.userType)[0]
-        });
-        this.userType = this.users.filter(t => t.id = this.id);
-        console.log(this.newUser);
-        debugger; */
         this._router.navigate(["/users-list"]);
       },
       err => {

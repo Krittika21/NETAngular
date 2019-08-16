@@ -36,7 +36,7 @@ namespace SportsAspNet.Controllers
                 {
                     Date = item.Date,
                     ID = item.ID,
-                    
+
                     TestType = testType.TestName
                 });
             }
@@ -59,12 +59,31 @@ namespace SportsAspNet.Controllers
             var test = await _context.TestDetails.FirstOrDefaultAsync(x => x.ID == id);
             var testTypeMap = await _context.TestTypeMap.FirstOrDefaultAsync(s => s.TestId == id);
             var testType = await _context.TestType.FirstOrDefaultAsync(t => t.ID == testTypeMap.TestTypeId);
-            var testView = new CreateTestViewModel {
+            var testView = new CreateTestViewModel
+            {
                 ID = id,
                 Date = test.Date,
                 TestType = testType.TestName
             };
             return Ok(testView);
+        }
+
+        [HttpGet]
+        [Route("getTestAthletes/{testId}")]
+        public async Task<IActionResult> GetTestAthletes(int testId)
+        {
+            var listToReturn = new List<AthletesViewModel>();
+            var testAthletes = await _context.UserTestMap.Where(x => x.TestId == testId).ToListAsync();
+            foreach (var testAthlete in testAthletes)
+            {
+                var userName =  _context.User.Where(x=>x.ID == testAthlete.UserId).Select(s => s.Name).First();
+                listToReturn.Add(new AthletesViewModel {
+                    Name = userName,
+                    CTDistance = testAthlete.CTDistance,
+                    STTime = testAthlete.STTime
+                });
+            }
+            return Ok(listToReturn);
         }
 
         // GET: api/Main/5
@@ -91,21 +110,10 @@ namespace SportsAspNet.Controllers
 
             _context.Entry(testDetailsList).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TestDetailsListExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+
+            await _context.SaveChangesAsync();
+
+
 
             return NoContent();
         }
@@ -115,7 +123,8 @@ namespace SportsAspNet.Controllers
         [Route("PostTest")]
         public async Task<IActionResult> PostTestDetailsList([FromBody] CreateTestViewModel test)
         {
-            TestDetailsList newTest = new TestDetailsList {
+            TestDetailsList newTest = new TestDetailsList
+            {
                 Date = test.Date
             };
             TestDetailsList addedTest = _context.TestDetails.Add(newTest).Entity;
@@ -138,33 +147,24 @@ namespace SportsAspNet.Controllers
 
             return Ok();
         }
-        
+
 
 
         // DELETE: api/Main/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTestDetailsList([FromRoute] int id)
+        [HttpDelete("{testId}")]
+        public async Task<IActionResult> DeleteTestDetailsList([FromRoute] int testId)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
 
-            var testDetailsList = await _context.TestDetails.FindAsync(id);
-            if (testDetailsList == null)
+            var test = await _context.TestDetails.FindAsync(testId);
+            if (test == null)
             {
                 return NotFound();
             }
 
-            _context.TestDetails.Remove(testDetailsList);
+            _context.TestDetails.Remove(test);
             await _context.SaveChangesAsync();
 
-            return Ok(testDetailsList);
-        }
-
-        private bool TestDetailsListExists(int id)
-        {
-            return _context.TestDetails.Any(e => e.ID == id);
+            return Ok();
         }
     }
 }

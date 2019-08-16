@@ -13,6 +13,7 @@ namespace SportsAspNet.Models
         public int ID { get; set; }
         public double? CTDistance { get; set; }
         public double? STTime { get; set; }
+       // public string Name { get; set; }
         public string FitnessRating { get; set; }
 
         public int TestId { get; set; }
