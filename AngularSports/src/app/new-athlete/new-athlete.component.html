@@ -1,5 +1,8 @@
 <h3>ADD NEW ATHLETE TO TEST</h3>
-<div *ngIf="isAvailable">
+
+
+<div *ngIf = "test?.testType==='100m Sprint Test', then STTime else CTDistance"></div>
+<ng-template #CTDistance>
     <form action="form-control justify-content-center">
         <input type="hidden" [(ngModel)]= athletes.testId name="testId"/>
     <label>Name</label>
@@ -13,7 +16,27 @@
         <input type="distance" name="CTDistance" [(ngModel)]=athletes.CTDistance class="form-control justify-content-center" placeholder="0">
     </div>
     </form>
+</ng-template>
+
+
+<ng-template #STTime>
+    <form action="form-control justify-content-center">
+        <input type="hidden" [(ngModel)]= athletes.testId name="testId"/>
+    <label>Name</label>
+    <div class="form-group col-md-12">
+        <select type="input" name="Name" [(ngModel)]= athletes.Name class="form-control justify-content-center">
+            <option *ngFor="let user of users">{{user.name}}</option>
+        </select>
+    </div>
+    <label>Time Taken</label>
+    <div class="form-group col-md-12">
+        <input type="text" name="STTime" [(ngModel)]=athletes.STTime class="form-control justify-content-center" placeholder="0">
+    </div>
+    </form>
+</ng-template>
+
+
     <div class="form-group">
         <button type="button" (click)="onSubmit()">SAVE</button>
     </div>
-</div>
+    

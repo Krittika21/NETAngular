@@ -13,28 +13,36 @@ export class UserDetailsService {
   URL : string="http://localhost:53629/api";
   currentUserId: number;
   
-  constructor( private _http:HttpClient) { }
+  constructor( private _http:HttpClient) {
+
+   }
 
 
 
 //ATHLETES
 getAthletes()
 {
-  return this._http.get(this.URL + "/Users/GetAthletes")
+  return this._http.get(this.URL + "/Users/GetAthletes");
 }
 postAthletes(body: UserTypeMap)
 {
-  return this._http.post(this.URL + "/Users/postAthletes/:TestId",body)
+  return this._http.post(this.URL + "/Users/postAthletes/" + body.testId, body);
 }
 
 //USERS
 GetUsers()
 {
-  return this._http.get(this.URL + "/Users/GetUsers")
+  return this._http.get(this.URL + "/Users/GetUsers");
 }
 postUsers(body:UserDetails)
 {
-  return this._http.post(this.URL + "/Users/postUsers", body)
+  return this._http.post(this.URL + "/Users/postUsers", body);
 }
+
+getAthleteById(testId)
+{
+return this._http.get(this.URL + "/Users/getUserByTest/" + testId);
+}
+
 
 } 

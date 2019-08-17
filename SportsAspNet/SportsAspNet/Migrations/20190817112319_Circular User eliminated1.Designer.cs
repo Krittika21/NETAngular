@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SportsAspNet.Models;
 
 namespace SportsAspNet.Migrations
 {
     [DbContext(typeof(SportsContext))]
-    partial class SportsContextModelSnapshot : ModelSnapshot
+    [Migration("20190817112319_Circular User eliminated1")]
+    partial class CircularUsereliminated1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,7 +29,11 @@ namespace SportsAspNet.Migrations
 
                     b.Property<DateTime>("Date");
 
+                    b.Property<int?>("TestTypesID");
+
                     b.HasKey("ID");
+
+                    b.HasIndex("TestTypesID");
 
                     b.ToTable("TestDetails");
                 });
@@ -56,9 +62,6 @@ namespace SportsAspNet.Migrations
                     b.Property<int>("TestTypeId");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("TestId")
-                        .IsUnique();
 
                     b.HasIndex("TestTypeId");
 
@@ -105,15 +108,17 @@ namespace SportsAspNet.Migrations
                     b.ToTable("UserTestMap");
                 });
 
+            modelBuilder.Entity("SportsAspNet.Models.TestDetailsList", b =>
+                {
+                    b.HasOne("SportsAspNet.Models.TestTypeMap", "TestTypes")
+                        .WithMany()
+                        .HasForeignKey("TestTypesID");
+                });
+
             modelBuilder.Entity("SportsAspNet.Models.TestTypeMap", b =>
                 {
-                    b.HasOne("SportsAspNet.Models.TestDetailsList", "TestDetail")
-                        .WithOne("TestTypes")
-                        .HasForeignKey("SportsAspNet.Models.TestTypeMap", "TestId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("SportsAspNet.Models.TestType", "TestTypes")
-                        .WithMany("TestTypes")
+                        .WithMany()
                         .HasForeignKey("TestTypeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

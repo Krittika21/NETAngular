@@ -1,7 +1,10 @@
-export class UserTypeMap {
+
+
+export class UserTypeMap
+ {
     Name: string;
     CTDistance?: number;
-    STTime?:number;
+    STTime?: number;
     fitnessRating:string;
     testId:number;
 }

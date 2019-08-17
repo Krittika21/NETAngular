@@ -43,9 +43,9 @@ export class TestDetailsService {
   {
     return this._http.get(this.URL + "/Main/getCurrentTest/"+id);
   }
-  //Delete
-  deleteTest()
-  {
-    return this._http.delete(this.URL + "/Main/DeleteTest");
-  }
+//Delete
+   deleteTestDetails(testId)
+ {
+   return this._http.delete(this.URL + "/Main/deleteTestDetails/" + testId)
+}
 }

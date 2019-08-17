@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { stringify } from 'querystring';
 import { User } from '../shared/user.model';
 import { UserDetailsService } from '../shared/user-details.service';
 import { UserTypeMap } from '../shared/user-type-map.model';
+import { TestDetailsService } from '../shared/test-details.service';
 
 @Component({
   selector: 'app-new-athlete',
@@ -11,31 +11,31 @@ import { UserTypeMap } from '../shared/user-type-map.model';
   styleUrls: ['./new-athlete.component.css']
 })
 export class NewAthleteComponent implements OnInit {
-ID: number;
-Name: string;
-CTDistance: number;
-STTime: number;
-FitnessRating: string;
 athletes: UserTypeMap;
 users: Array<User>;
 isAvailable : boolean;
+test :any;
 
-
-  constructor(private userDetailsService: UserDetailsService, private _router: Router, private _route: ActivatedRoute) 
+  constructor(private testDetailsService: TestDetailsService, private userDetailsService: UserDetailsService, private _router: Router, private _route: ActivatedRoute) 
   {
     this.isAvailable = false;
   }
   
   ngOnInit() {
+    this.testDetailsService.getCurrentTest(+this._route.snapshot.paramMap.get("testId")).subscribe(
+      (result) =>{
+        this.test = result
+        console.log(this.test);
+      }
+    );      
+
     this.athletes =
     {
       Name:null,
       CTDistance: 0,
       STTime: 0,
       fitnessRating: null,
-      testId: +this._route.snapshot.paramMap.get("testId"),
-      //userId: 0
-      //userId: +this._route.snapshot.paramMap.get("user.userId")
+      testId: +this._route.snapshot.paramMap.get("testId")
     }
 
     this.userDetailsService.getAthletes().subscribe(
@@ -51,17 +51,11 @@ isAvailable : boolean;
   }
   onSubmit()
   {
-    debugger;
     this.userDetailsService.postAthletes(this.athletes).subscribe(
-      result=> {
-        console.log(result);
-        this._router.navigate(["/athlete-details/:id"]);
-      },
-      err => {
-        console.log(err);
+      (result: Array<UserTypeMap>) => {
+        
       }
-    );
-    debugger;
+    )
   }
 
 }

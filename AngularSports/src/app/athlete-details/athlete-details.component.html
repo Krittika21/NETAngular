@@ -1,5 +1,8 @@
 <h2>{{test?.testType}} {{test?.date}}</h2> 
-<div class="card">                  
+
+<div *ngIf = "test?.testType==='100m Sprint Test', then STTime else CTDistance"></div>
+
+<ng-template #CTDistance>                
     <table class="table">
     <thead>
         <tr>
@@ -9,12 +12,12 @@
         </tr>
     </thead>
         <tbody>
-            <tr *ngFor="let items of athleteMap; index as id">
+            <tr *ngFor="let items of athleteMap">
                     <td>
-                            <a [routerLink]='["/edit-athlete/"]'>{{items.Name}}</a>
+                            <a [routerLink]='["/edit-athlete/"]'>{{items.users.name}}</a>
                     </td>
                     <td>
-                            <a [routerLink]='["/edit-athlete/"]'>{{items.CTDistance}}</a>
+                            <a [routerLink]='["/edit-athlete/"]'>{{items.ctDistance}}</a>
                     </td>
                     <td>
                             <a [routerLink]='["/edit-athlete/",items.id]'>{{items.fitnessRating}}</a>
@@ -22,12 +25,34 @@
             </tr>
     </tbody> 
     </table> 
-</div>
+</ng-template>
+
+<ng-template #STTime>                 
+    <table class="table">
+    <thead>
+        <tr>
+            <th>Ranking</th>
+            <th>Time Taken</th>
+        </tr>
+    </thead>
+        <tbody>
+            <tr *ngFor="let items of athleteMap">
+                    <td>
+                            <a [routerLink]='["/edit-athlete/"]'>{{items.users.name}}</a>
+                    </td>
+                    <td>
+                            <a [routerLink]='["/edit-athlete/"]'>{{items.stTime}}</a>
+                    </td>
+            </tr>
+    </tbody> 
+    </table> 
+</ng-template>
+
+
 <div>
     <button type="button" (click)="forNewAthlete()">ADD NEW ATHLETE TO TEST</button>
 </div>
+
 <div class="button2">
-    <button type="button">
-        <a [routerLink] = '["/test-details-list"]'>DELETE TEST</a>
-    </button>
+    <button type="button" (click)= "toDeleteTest()" >DELETE TEST</button>
 </div>

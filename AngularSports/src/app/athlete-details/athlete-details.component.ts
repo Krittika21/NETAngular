@@ -14,24 +14,26 @@ import { UserTypeMap } from '../shared/user-type-map.model';
 export class AthleteDetailsComponent implements OnInit {
   test: TestDetails;
   currentTestId: number;
-  
-  details: Array<User>;
-  athleteMap: Array<UserTypeMap>;
-  //athletes: Array<AthleteDetailsComponent>;
-  Id: number;
-  Name: null;
-  CTDistance: 0;
-  STTime: 0;
-  fitnessRating: null;
+  athleteMap: any;
 
   constructor(private userDetailsService:UserDetailsService, private testDetailsService:TestDetailsService, private _router:Router, private router: ActivatedRoute) { }
   
-  forNewAthlete(): void{
+  forNewAthlete(): void
+  {
+
     this._router.navigate(["test/" + this.currentTestId+ "/add-athlete"])
   }
+  
   toDeleteTest()
   {
-    this._router.navigate(["/test-details"])
+    this.testDetailsService.deleteTestDetails(this.currentTestId).subscribe(
+      (result:TestDetails) =>{
+        this._router.navigate(["/test-details"]);
+      },
+      error => {
+        console.log(error)
+      }
+    );
   }
 
   ngOnInit() {
@@ -39,19 +41,19 @@ export class AthleteDetailsComponent implements OnInit {
     this.testDetailsService.getCurrentTest(this.currentTestId).subscribe(
       (result:TestDetails) =>{
         this.test = result
+        console.log(this.test);
+      }
+    );      
+
+    this.userDetailsService.getAthleteById(this.currentTestId).subscribe(
+      result => {
+        this.athleteMap = result as any;
+        console.log(this.athleteMap);
+      },
+      error => {
+        console.log(error)
       }
     );
-    console.log(this.currentTestId);   
-    this.userDetailsService.getAthletes().subscribe(
-      (result: Array<User>) => {
-        console.log("result");
-        this.details = result;
-       
-        console.log(this.details);
-      },
-      err => {
-        console.log(err);
-      }); 
-
+    
   }
 }

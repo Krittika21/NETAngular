@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SportsAspNet.Models;
 
 namespace SportsAspNet.Migrations
 {
     [DbContext(typeof(SportsContext))]
-    partial class SportsContextModelSnapshot : ModelSnapshot
+    [Migration("20190817113630_Update1")]
+    partial class Update1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -113,7 +115,7 @@ namespace SportsAspNet.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SportsAspNet.Models.TestType", "TestTypes")
-                        .WithMany("TestTypes")
+                        .WithMany()
                         .HasForeignKey("TestTypeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

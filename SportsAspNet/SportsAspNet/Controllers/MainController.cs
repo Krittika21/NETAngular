@@ -26,17 +26,19 @@ namespace SportsAspNet.Controllers
         [Route("GetTest")]
         public async Task<IActionResult> GetTestDetails()
         {
-            var tests = await _context.TestDetails.ToListAsync();
+            var tests = _context.TestDetails.ToList();
             List<CreateTestViewModel> list = new List<CreateTestViewModel>();
             foreach (var item in tests)
             {
-                var testTypeMap = _context.TestTypeMap.First(x => x.TestId == item.ID);
+                var testTypeMap = _context.TestTypeMap.FirstOrDefault(x => x.TestId == item.ID);
                 var testType = _context.TestType.First(x => x.ID == testTypeMap.TestTypeId);
+
+                var userType = await _context.UserTestMap.Where(u => u.TestId == item.ID).ToListAsync();
                 list.Add(new CreateTestViewModel
                 {
                     Date = item.Date,
                     ID = item.ID,
-
+                    user= userType,
                     TestType = testType.TestName
                 });
             }
@@ -151,8 +153,9 @@ namespace SportsAspNet.Controllers
 
 
         // DELETE: api/Main/5
-        [HttpDelete("{testId}")]
-        public async Task<IActionResult> DeleteTestDetailsList([FromRoute] int testId)
+        [HttpDelete]
+        [Route("deleteTestDetails/{testId}")]
+        public async Task<IActionResult> DeleteTestDetails([FromRoute] int testId)
         {
 
             var test = await _context.TestDetails.FindAsync(testId);
@@ -164,7 +167,7 @@ namespace SportsAspNet.Controllers
             _context.TestDetails.Remove(test);
             await _context.SaveChangesAsync();
 
-            return Ok();
+            return Ok(test);
         }
     }
 }

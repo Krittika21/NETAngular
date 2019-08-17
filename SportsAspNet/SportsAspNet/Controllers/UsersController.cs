@@ -99,22 +99,31 @@ namespace SportsAspNet.Controllers
         public async Task<IActionResult> PostAthletes([FromBody] AthletesViewModel athletesViewModel)
         {
             var User = _context.User.Where(u => u.Name.Equals(athletesViewModel.Name)).Select(u => u.ID).First();
-
+            
             UserTypeMap userTypeMap = new UserTypeMap();
             userTypeMap.TestId = athletesViewModel.TestId;
             userTypeMap.UserId = User;
-            if (athletesViewModel.CTDistance == null)
+            if (athletesViewModel.CTDistance == 0)
             {
                 userTypeMap.STTime = athletesViewModel.STTime;
             }
             else {
                 userTypeMap.CTDistance = athletesViewModel.CTDistance;
+                userTypeMap.FitnessRating = CalculateFitness(athletesViewModel.CTDistance);
             }
-
 
             await _context.AddAsync(userTypeMap);
             await _context.SaveChangesAsync();
             return Ok(userTypeMap);
+        }
+
+
+        [HttpGet]
+        [Route("getUserByTest/{testId}")]
+        public async Task<IActionResult> GetUserByTest([FromRoute] int testId)
+        {
+            var userTest = await _context.UserTestMap.Include(u => u.Users).Where(u => u.TestId == testId).ToListAsync();
+            return Ok(userTest);
         }
 
         //postUsers
@@ -155,6 +164,30 @@ namespace SportsAspNet.Controllers
         private bool UsersExists(int id)
         {
             return _context.User.Any(e => e.ID == id);
+        }
+
+ //method to calculate the fitness rating
+        private String CalculateFitness(double? CTDistance)
+        {
+            string FitnessRating;
+            //var userTest = _dbContext.UserTestMapping.Where(x=>x.ID == id).Single();
+            if (CTDistance < 1000)
+            {
+                FitnessRating = "Below Average";
+            }
+            else if (CTDistance > 1000 && CTDistance < 2000)
+            {
+                FitnessRating = "Average";
+            }
+            else if (CTDistance > 2000 && CTDistance < 3500)
+            {
+                FitnessRating = "Good";
+            }
+            else
+            {
+                FitnessRating = "Very Good";
+            }
+            return FitnessRating;
         }
     }
 }
