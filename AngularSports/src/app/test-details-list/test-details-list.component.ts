@@ -24,6 +24,7 @@ export class TestDetailsListComponent implements OnInit {
   }
   
   forTestDetails(test: TestDetails): void {
+    debugger;
     this.testDetailsService.setCurrentTestId(test.id);
   }
 

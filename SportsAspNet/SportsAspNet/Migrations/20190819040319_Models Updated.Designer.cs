@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SportsAspNet.Models;
 
 namespace SportsAspNet.Migrations
 {
     [DbContext(typeof(SportsContext))]
-    partial class SportsContextModelSnapshot : ModelSnapshot
+    [Migration("20190819040319_Models Updated")]
+    partial class ModelsUpdated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,15 +93,13 @@ namespace SportsAspNet.Migrations
 
                     b.Property<double?>("STTime");
 
-                    b.Property<int?>("TestDetailsListID");
-
                     b.Property<int>("TestId");
 
                     b.Property<int>("UserId");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("TestDetailsListID");
+                    b.HasIndex("TestId");
 
                     b.HasIndex("UserId");
 
@@ -121,9 +121,10 @@ namespace SportsAspNet.Migrations
 
             modelBuilder.Entity("SportsAspNet.Models.UserTypeMap", b =>
                 {
-                    b.HasOne("SportsAspNet.Models.TestDetailsList")
+                    b.HasOne("SportsAspNet.Models.TestDetailsList", "TestDetail")
                         .WithMany("UserTests")
-                        .HasForeignKey("TestDetailsListID");
+                        .HasForeignKey("TestId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SportsAspNet.Models.Users", "Users")
                         .WithMany()

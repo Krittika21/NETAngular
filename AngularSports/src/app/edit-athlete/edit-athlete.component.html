@@ -1,0 +1,43 @@
+<h3>CHANGE DATA FOR ATHLETE</h3>
+<!-- <div *ngIf="test!==null"> -->
+
+<div *ngIf="test.testType==='100m Sprint Test', then STTime else CTDistance"></div>
+<ng-template #CTDistance >
+    <form action="form-control justify-content-center">
+        
+    <label>Name</label>
+    <div class="form-group col-md-12">
+        <input type="text" name="name" [(ngModel)]=test.name class="form-control justify-content-center"/>
+           
+        
+    </div>
+    <label>Distance (meter)</label>
+    <div class="form-group col-md-12">
+        <input type="distance" name="CTDistance" [(ngModel)]=test.ctDistance class="form-control justify-content-center" placeholder="0">
+    </div>
+    </form>
+</ng-template>
+
+
+<!-- <ng-template #STTime>
+    <form action="form-control justify-content-center">
+        <input type="hidden" [(ngModel)]= athletes.testId name="testId"/>
+    <label>Name</label>
+    <div class="form-group col-md-12">
+        <input type="text" name="name" [(ngModel)]= test.users.name class="form-control justify-content-center"/>
+    </div>
+    <label>Time Taken</label>
+    <div class="form-group col-md-12">
+        <input type="text" name="STTime" [(ngModel)]=test.stTime class="form-control justify-content-center">
+    </div>
+    </form>
+</ng-template> -->
+
+<div class="button2">
+    <button type="button" (click)= "toDeleteTest()" >DELETE ATHLETE FROM TEST</button>
+</div>
+
+    <div class="form-group">
+        <button type="button" (click)="onSubmit()">SAVE</button>
+    </div>
+<!-- </div> -->

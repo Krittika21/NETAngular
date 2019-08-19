@@ -19,7 +19,9 @@ namespace SportsAspNet.Models
         public int TestId { get; set; }
         public int UserId { get; set; }
 
+        
         [ForeignKey("TestId")]
+        [NotMapped]
         public virtual TestDetailsList TestDetail { get; set; }
         [ForeignKey("UserId")]
         public virtual Users Users { get; set; }

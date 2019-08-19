@@ -5,6 +5,8 @@ import { UserDetailsService } from '../shared/user-details.service';
 import { UserTypeMap } from '../shared/user-type-map.model';
 import { TestDetailsService } from '../shared/test-details.service';
 
+
+
 @Component({
   selector: 'app-new-athlete',
   templateUrl: './new-athlete.component.html',
@@ -35,7 +37,8 @@ test :any;
       CTDistance: 0,
       STTime: 0,
       fitnessRating: null,
-      testId: +this._route.snapshot.paramMap.get("testId")
+      testId: +this._route.snapshot.paramMap.get("testId"),
+      userId: 0,
     }
 
     this.userDetailsService.getAthletes().subscribe(
@@ -53,9 +56,11 @@ test :any;
   {
     this.userDetailsService.postAthletes(this.athletes).subscribe(
       (result: Array<UserTypeMap>) => {
-        
-      }
-    )
-  }
+        this._router.navigate(['/athlete-details/'+ this.athletes.testId])
+      },
+      err => {
+        console.log("error");
+      });
 
+  }
 }

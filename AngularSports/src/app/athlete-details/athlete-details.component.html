@@ -12,15 +12,15 @@
         </tr>
     </thead>
         <tbody>
-            <tr *ngFor="let items of athleteMap">
+            <tr *ngFor="let items of test; index as users">
                     <td>
-                            <a [routerLink]='["/edit-athlete/"]'>{{items.users.name}}</a>
+                            <a [routerLink]='["/edit-athlete/", currentTestId , items.userId]'>{{items.users.name}}</a>
                     </td>
                     <td>
-                            <a [routerLink]='["/edit-athlete/"]'>{{items.ctDistance}}</a>
+                            <a [routerLink]='["/edit-athlete/", currentTestId , items.userId]'>{{items.ctDistance}}</a>
                     </td>
                     <td>
-                            <a [routerLink]='["/edit-athlete/",items.id]'>{{items.fitnessRating}}</a>
+                            <a [routerLink]='["/edit-athlete/", currentTestId , items.userId]'>{{items.fitnessRating}}</a>
                     </td>
             </tr>
     </tbody> 
@@ -36,12 +36,12 @@
         </tr>
     </thead>
         <tbody>
-            <tr *ngFor="let items of athleteMap">
+            <tr *ngFor="let items of test">
                     <td>
-                            <a [routerLink]='["/edit-athlete/"]'>{{items.users.name}}</a>
+                            <a [routerLink]='["/edit-athlete/", currentTestId , items.id]'>{{items.users.name}}</a>
                     </td>
                     <td>
-                            <a [routerLink]='["/edit-athlete/"]'>{{items.stTime}}</a>
+                            <a [routerLink]='["/edit-athlete/", currentTestId , items.id]'>{{items.stTime}}</a>
                     </td>
             </tr>
     </tbody> 

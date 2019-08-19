@@ -21,6 +21,16 @@ namespace SportsAspNet.Controllers
             _context = context;
         }
 
+//Get Users
+        [HttpGet]
+        [Route("GetUsers")]
+        public async Task<IActionResult> GetUsers()
+        {
+            var users = await _context.User.ToListAsync();
+            return Ok(users);
+        }
+
+//Get Athletes
         // GET: api/Users
         [HttpGet]
         [Route("GetAthletes")]
@@ -30,66 +40,57 @@ namespace SportsAspNet.Controllers
             var athletes = await _context.User.AsQueryable().Where(x => x.userType == "Athlete").ToListAsync();
             return Ok(athletes);
         }
+
         [HttpGet]
-        [Route("GetUsers")]
-        public async Task<IActionResult> GetUsers()
+        [Route("getUserByTest/{testId}")]
+        public async Task<IActionResult> GetUserByTest([FromRoute] int testId)
         {
-            var users = await _context.User.ToListAsync();
-            return Ok(users);
+            var userTest = await _context.UserTestMap.Include(u => u.Users).Where(u => u.TestId == testId).ToListAsync();
+            return Ok(userTest);
         }
-
+        
         // GET: api/Users/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetUsers([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //[HttpGet("{id}")]
+        //public async Task<IActionResult> GetUsers([FromRoute] int id)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            var users = await _context.User.FindAsync(id);
+        //    var users = await _context.User.FindAsync(id);
 
-            if (users == null)
-            {
-                return NotFound();
-            }
+        //    if (users == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return Ok(users);
-        }
+        //    return Ok(users);
+        //}
 
         // PUT: api/Users/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutUsers([FromRoute] int id, [FromBody] Users users)
+        [HttpPut("putAthletes/{id}")]
+        public async Task<IActionResult> PutAthletes([FromRoute] int id, [FromBody] AthletesViewModel athletesViewModel)
         {
-            if (!ModelState.IsValid)
+            var User = _context.User.Where(u => u.Name.Equals(athletesViewModel.Name)).Select(u => u.ID).First();
+
+            UserTypeMap userTypeMap = _context.UserTestMap.Where(x => x.TestId == id).Where(y => y.UserId == User).First();
+            userTypeMap.TestId = athletesViewModel.TestId;
+            userTypeMap.UserId = User;
+            if (athletesViewModel.CTDistance == 0)
             {
-                return BadRequest(ModelState);
+                userTypeMap.STTime = athletesViewModel.STTime;
+            }
+            else
+            {
+                userTypeMap.CTDistance = athletesViewModel.CTDistance;
+                userTypeMap.FitnessRating = CalculateFitness(athletesViewModel.CTDistance);
             }
 
-            if (id != users.ID)
-            {
-                return BadRequest();
-            }
+            _context.Update(userTypeMap);
+            await _context.SaveChangesAsync();
+            return Ok(userTypeMap);
 
-            _context.Entry(users).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UsersExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
         }
 
         // POST: api/Users
@@ -118,13 +119,7 @@ namespace SportsAspNet.Controllers
         }
 
 
-        [HttpGet]
-        [Route("getUserByTest/{testId}")]
-        public async Task<IActionResult> GetUserByTest([FromRoute] int testId)
-        {
-            var userTest = await _context.UserTestMap.Include(u => u.Users).Where(u => u.TestId == testId).ToListAsync();
-            return Ok(userTest);
-        }
+
 
         //postUsers
         [Route("postUsers")]

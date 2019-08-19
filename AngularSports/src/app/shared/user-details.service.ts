@@ -28,6 +28,10 @@ postAthletes(body: UserTypeMap)
 {
   return this._http.post(this.URL + "/Users/postAthletes/" + body.testId, body);
 }
+putAthletes(body : UserTypeMap)
+{
+  return this._http.put(this.URL + "/Users/putAthletes/" + body.testId, body);
+}
 
 //USERS
 GetUsers()

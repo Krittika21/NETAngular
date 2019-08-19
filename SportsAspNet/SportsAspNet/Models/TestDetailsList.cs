@@ -14,6 +14,6 @@ namespace SportsAspNet.Models
 
         public virtual ICollection<UserTypeMap> UserTests { get; set; }
 
-        public virtual TestTypeMap TestTypes { get; set; }
+      //  public virtual TestTypeMap TestTypes { get; set; }
     }
 }

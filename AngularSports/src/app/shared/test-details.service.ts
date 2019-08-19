@@ -39,9 +39,13 @@ export class TestDetailsService {
     return this._http.get(this.URL + "/Main/GetTestType")
   } 
   //get
+  getTestWithAthlete(testId, userId)
+  {
+    return this._http.get(this.URL + "/Main/getTestWithAthlete/"+testId+"/"+userId);
+  }
   getCurrentTest(id)
   {
-    return this._http.get(this.URL + "/Main/getCurrentTest/"+id);
+    return this._http.get(this.URL + "/Main/getCurrentTestId/"+ id);
   }
 //Delete
    deleteTestDetails(testId)

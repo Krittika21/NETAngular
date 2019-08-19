@@ -12,6 +12,6 @@ namespace SportsAspNet.Models
         [Key]
         public int ID { get; set; }
         public string TestName { get; set; }
-        public virtual ICollection<TestTypeMap> TestTypes { get; set; }
+        //public virtual ICollection<TestTypeMap> TestTypes { get; set; }
     }
 }

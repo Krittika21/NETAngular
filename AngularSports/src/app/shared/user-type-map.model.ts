@@ -7,4 +7,5 @@ export class UserTypeMap
     STTime?: number;
     fitnessRating:string;
     testId:number;
+    userId: number;
 }

@@ -21,30 +21,32 @@ namespace SportsAspNet.Controllers
             _context = context;
         }
 
+        // Get the list of tests with date
         // GET: api/Main
         [HttpGet]
         [Route("GetTest")]
         public async Task<IActionResult> GetTestDetails()
         {
-            var tests = _context.TestDetails.ToList();
+            var tests = _context.TestTypeMap.ToList();
             List<CreateTestViewModel> list = new List<CreateTestViewModel>();
             foreach (var item in tests)
             {
-                var testTypeMap = _context.TestTypeMap.FirstOrDefault(x => x.TestId == item.ID);
-                var testType = _context.TestType.First(x => x.ID == testTypeMap.TestTypeId);
+                var testDetails = _context.TestDetails.FirstOrDefault(x => x.ID == item.TestId);
+                var testType = _context.TestType.First(x => x.ID == item.TestTypeId);
 
-                var userType = await _context.UserTestMap.Where(u => u.TestId == item.ID).ToListAsync();
+                var userType = await _context.UserTestMap.Where(u => u.TestId == item.TestId).ToListAsync();
                 list.Add(new CreateTestViewModel
                 {
-                    Date = item.Date,
-                    ID = item.ID,
-                    user= userType,
+                    Date = item.TestDetail.Date,
+                    ID = item.TestId,
+                    user = userType,
                     TestType = testType.TestName
                 });
             }
             return Ok(list);
         }
 
+        //Get the list of test types (cooper or sprint test)
         // GET: api/Main/5
         [HttpGet]
         [Route("getTestType")]
@@ -55,19 +57,33 @@ namespace SportsAspNet.Controllers
         }
 
         [HttpGet]
-        [Route("getCurrentTest/{id}")]
-        public async Task<IActionResult> getCurrentTest(int id)
-        {
-            var test = await _context.TestDetails.FirstOrDefaultAsync(x => x.ID == id);
-            var testTypeMap = await _context.TestTypeMap.FirstOrDefaultAsync(s => s.TestId == id);
-            var testType = await _context.TestType.FirstOrDefaultAsync(t => t.ID == testTypeMap.TestTypeId);
-            var testView = new CreateTestViewModel
-            {
-                ID = id,
-                Date = test.Date,
-                TestType = testType.TestName
+        [Route("getCurrentTestId/{id}")]
+        public async Task<IActionResult> GetCurrentTest([FromRoute] int id)
+       {
+            var userTest = await _context.UserTestMap.Include(u => u.Users).Where(u => u.TestId == id).ToListAsync();
+            return Ok(userTest);
+        }
+
+//Get the current Id of the test for adding athletes as per that perticular Id
+        [HttpGet]
+        [Route("getTestWithAthlete/{TestID}/{userId}")]
+        public async Task<IActionResult> getTestWithAthlete([FromRoute] int TestID, [FromRoute] int userId)
+     {
+            //var participants = await _context.UserTestMap.FirstOrDefaultAsync(u => u.UserId == userId);
+            var testTypeMap = await _context.UserTestMap
+                .Where(s => s.TestId == TestID).Where(s =>s.UserId == userId)
+                .Include(s => s.Users)
+                .FirstOrDefaultAsync();
+            var athleteView = new AthletesViewModel {
+                UserId = userId,
+                TestId = TestID,
+                Name = testTypeMap.Users.Name,
+                CTDistance = testTypeMap.CTDistance,
+                STTime = testTypeMap.STTime,
+                fitnessRating = testTypeMap.FitnessRating
             };
-            return Ok(testView);
+
+            return Ok(athleteView);
         }
 
         [HttpGet]
@@ -88,14 +104,6 @@ namespace SportsAspNet.Controllers
             return Ok(listToReturn);
         }
 
-        // GET: api/Main/5
-        //[HttpGet]
-        //[Route("getParticipants")]
-        //public async Task<IActionResult> GetParticipants()
-        //{
-        //    var type = await _context.TestType.ToListAsync();
-        //    return Ok(type);
-        //}
         // PUT: api/Main/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTestDetailsList([FromRoute] int id, [FromBody] TestDetailsList testDetailsList)
@@ -143,7 +151,7 @@ namespace SportsAspNet.Controllers
 
             await _context.SaveChangesAsync();
 
-            addedTest.TestTypes = testTypeMap;
+           // addedTest.TestTypes = testTypeMap;
             _context.TestDetails.Update(addedTest);
             await _context.SaveChangesAsync();
 

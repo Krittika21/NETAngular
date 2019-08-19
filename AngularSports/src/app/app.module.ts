@@ -12,6 +12,7 @@ import { TestDetailsService } from './shared/test-details.service';
 import { FormsModule } from '@angular/forms';
 import { UsersListComponent } from './users/users-list/users-list.component';
 import { UsersModule } from './users/users.module';
+import { EditAthleteComponent } from './edit-athlete/edit-athlete.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { UsersModule } from './users/users.module';
     TestDetailsListComponent,
     NewTestComponent,
     AthleteDetailsComponent,
-    NewAthleteComponent
+    NewAthleteComponent,
+    EditAthleteComponent
   ],
   imports: [
     BrowserModule,

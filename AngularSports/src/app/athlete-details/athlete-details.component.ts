@@ -12,15 +12,15 @@ import { UserTypeMap } from '../shared/user-type-map.model';
   styleUrls: ['./athlete-details.component.css']
 })
 export class AthleteDetailsComponent implements OnInit {
-  test: TestDetails;
+  test: any;
   currentTestId: number;
-  athleteMap: any;
-
-  constructor(private userDetailsService:UserDetailsService, private testDetailsService:TestDetailsService, private _router:Router, private router: ActivatedRoute) { }
+  
+  constructor(private userDetailsService:UserDetailsService, private testDetailsService:TestDetailsService, private _router:Router, private router: ActivatedRoute) { 
+    this.currentTestId= + this.router.snapshot.paramMap.get("id");
+  }
   
   forNewAthlete(): void
   {
-
     this._router.navigate(["test/" + this.currentTestId+ "/add-athlete"])
   }
   
@@ -37,18 +37,10 @@ export class AthleteDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.currentTestId = +this.router.snapshot.paramMap.get('id');
     this.testDetailsService.getCurrentTest(this.currentTestId).subscribe(
-      (result:TestDetails) =>{
-        this.test = result
-        console.log(this.test);
-      }
-    );      
-
-    this.userDetailsService.getAthleteById(this.currentTestId).subscribe(
       result => {
-        this.athleteMap = result as any;
-        console.log(this.athleteMap);
+        this.test = result as any;
+         console.log(this.test);
       },
       error => {
         console.log(error)
