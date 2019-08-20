@@ -7,7 +7,10 @@ import { NewUsersComponent } from './new-users/new-users.component';
 
 
 @NgModule({
-  declarations: [UsersListComponent, NewUsersComponent],
+  declarations: [
+    UsersListComponent,
+     NewUsersComponent
+    ],
   imports: [
     CommonModule,
     FormsModule,

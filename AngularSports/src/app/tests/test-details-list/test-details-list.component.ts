@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TestDetailsService } from '../shared/test-details.service';
-import { TestDetails } from '../shared/test-details.model';
-import { TestType } from '../shared/test-type.model';
-
+import { TestDetailsService } from '../../shared/test-details.service';
+import { TestDetails } from '../../shared/test-details.model';
 
 @Component({
   selector: 'app-test-details-list',
@@ -24,7 +22,6 @@ export class TestDetailsListComponent implements OnInit {
   }
   
   forTestDetails(test: TestDetails): void {
-    debugger;
     this.testDetailsService.setCurrentTestId(test.id);
   }
 
@@ -38,15 +35,6 @@ export class TestDetailsListComponent implements OnInit {
       err => {
         console.log(err);
       });
-      //  this.testDetailsService.getTestType().subscribe(
-      //   result => {
-      //     console.log("result");
-      //     this.teststype = result as Array<TestDetails>;
-      //     console.log(this.tests);
-      // },
-      // err => {
-      //   console.log(err);
-      // }); 
       
   }
   

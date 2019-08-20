@@ -3,33 +3,25 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule }    from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TestDetailsListComponent } from './test-details-list/test-details-list.component';
-import { NewTestComponent } from './new-test/new-test.component';
-import { AthleteDetailsComponent } from './athlete-details/athlete-details.component';
-import { NewAthleteComponent } from './new-athlete/new-athlete.component';
+import { TestDetailsListComponent } from './tests/test-details-list/test-details-list.component';
+import { NewTestComponent } from './tests/new-test/new-test.component';
+import { NewAthleteComponent } from './tests/new-athlete/new-athlete.component';
 import { RouterModule } from '@angular/router';
 import { TestDetailsService } from './shared/test-details.service';
 import { FormsModule } from '@angular/forms';
-import { UsersListComponent } from './users/users-list/users-list.component';
 import { UsersModule } from './users/users.module';
-import { EditAthleteComponent } from './edit-athlete/edit-athlete.component';
+import { TestsModule } from './tests/tests.module';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    TestDetailsListComponent,
-    NewTestComponent,
-    AthleteDetailsComponent,
-    NewAthleteComponent,
-    EditAthleteComponent
-  ],
+  declarations: [ AppComponent ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
     UsersModule,
+    TestsModule,
   
     RouterModule.forRoot([
       { path: '', component: TestDetailsListComponent},

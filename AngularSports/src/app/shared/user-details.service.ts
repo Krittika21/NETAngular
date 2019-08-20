@@ -14,7 +14,7 @@ export class UserDetailsService {
   currentUserId: number;
   
   constructor( private _http:HttpClient) {
-
+    this.currentUserId
    }
 
 
@@ -22,7 +22,7 @@ export class UserDetailsService {
 //ATHLETES
 getAthletes()
 {
-  return this._http.get(this.URL + "/Users/GetAthletes");
+  return this._http.get(this.URL + "/Users/GetAthletes" );
 }
 postAthletes(body: UserTypeMap)
 {
@@ -31,6 +31,14 @@ postAthletes(body: UserTypeMap)
 putAthletes(body : UserTypeMap)
 {
   return this._http.put(this.URL + "/Users/putAthletes/" + body.testId, body);
+}
+deleteAthletes(testId, userId)
+{
+  return this._http.delete(this.URL + "/Users/deleteAthletes/" + testId + '/' + userId );
+}
+getTestAthletes(currentUserId)
+{
+  return this._http.get(this.URL + "/Users/getTestAthletes/" + currentUserId);
 }
 
 //USERS
@@ -43,9 +51,9 @@ postUsers(body:UserDetails)
   return this._http.post(this.URL + "/Users/postUsers", body);
 }
 
-getAthleteById(testId)
+getAthleteById(testId , userId)
 {
-return this._http.get(this.URL + "/Users/getUserByTest/" + testId);
+return this._http.get(this.URL + "/Users/getUserByTest/" + testId + '/' + userId);
 }
 
 

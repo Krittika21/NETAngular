@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { TestDetailsService } from '../shared/test-details.service';
-import { TestDetails } from '../shared/test-details.model';
-import { TestType } from '../shared/test-type.model';
+import { TestDetailsService } from '../../shared/test-details.service';
+import { TestDetails } from '../../shared/test-details.model';
+import { TestType } from '../../shared/test-type.model';
 
 @Component({
   selector: 'app-new-test',

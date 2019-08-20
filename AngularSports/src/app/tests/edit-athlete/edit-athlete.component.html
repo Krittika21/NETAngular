@@ -1,5 +1,5 @@
 <h3>CHANGE DATA FOR ATHLETE</h3>
-<!-- <div *ngIf="test!==null"> -->
+
 
 <div *ngIf="test.testType==='100m Sprint Test', then STTime else CTDistance"></div>
 <ng-template #CTDistance >
@@ -19,7 +19,7 @@
 </ng-template>
 
 
-<!-- <ng-template #STTime>
+ <ng-template #STTime>
     <form action="form-control justify-content-center">
         <input type="hidden" [(ngModel)]= athletes.testId name="testId"/>
     <label>Name</label>
@@ -31,7 +31,7 @@
         <input type="text" name="STTime" [(ngModel)]=test.stTime class="form-control justify-content-center">
     </div>
     </form>
-</ng-template> -->
+</ng-template>
 
 <div class="button2">
     <button type="button" (click)= "toDeleteTest()" >DELETE ATHLETE FROM TEST</button>
@@ -40,4 +40,3 @@
     <div class="form-group">
         <button type="button" (click)="onSubmit()">SAVE</button>
     </div>
-<!-- </div> -->

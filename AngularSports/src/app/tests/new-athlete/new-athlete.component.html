@@ -1,14 +1,15 @@
 <h3>ADD NEW ATHLETE TO TEST</h3>
 
+<div *ngFor ="let items of test?.test">
+    <div *ngIf = "items.testTypes.testName === 'Cooper Test'; then CTDistance else STTime"></div>
 
-<div *ngIf = "test?.testType==='100m Sprint Test', then STTime else CTDistance"></div>
 <ng-template #CTDistance>
     <form action="form-control justify-content-center">
         <input type="hidden" [(ngModel)]= athletes.testId name="testId"/>
     <label>Name</label>
     <div class="form-group col-md-12">
-        <select type="input" name="Name" [(ngModel)]= athletes.Name class="form-control justify-content-center">
-            <option *ngFor="let user of users">{{user.name}}</option>
+        <select ng-model="opt" ng-options="color in colors | unique:'items.Users.name'" type="input" name="Name"  [(ngModel)]= athletes.Name class="form-control justify-content-center" placeholder="choose">
+            <option *ngFor="let user of users ">{{user.name}}</option>
         </select>
     </div>
     <label>Distance (meter)</label>
@@ -34,7 +35,7 @@
     </div>
     </form>
 </ng-template>
-
+</div>
 
     <div class="form-group">
         <button type="button" (click)="onSubmit()">SAVE</button>

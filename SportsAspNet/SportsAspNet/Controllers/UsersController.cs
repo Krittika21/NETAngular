@@ -41,32 +41,37 @@ namespace SportsAspNet.Controllers
             return Ok(athletes);
         }
 
+        
+            [HttpGet]
+        [Route("getTestAthletes/{currentTestId}")]
+        public async Task<IActionResult> getTestAthletes([FromRoute] int currentTestId)
+        {
+            var usersToReturn = new List<Users>();
+            var athletes = await _context.User.AsQueryable().Where(x => x.userType == "Athlete").ToListAsync();
+            var testathletes = await _context.UserTestMap.Where(x => x.TestId == currentTestId).ToListAsync();
+            foreach (var item in athletes)
+            {
+                if (testathletes.Find(u => u.UserId == item.ID) == null)
+                {
+                    usersToReturn.Add(item);
+                }
+                
+            }
+            return Ok(usersToReturn);
+        }
+
         [HttpGet]
         [Route("getUserByTest/{testId}")]
         public async Task<IActionResult> GetUserByTest([FromRoute] int testId)
         {
             var userTest = await _context.UserTestMap.Include(u => u.Users).Where(u => u.TestId == testId).ToListAsync();
+            //if (userTest.Users.Name == _context.UserTestMap.Where(x=>x.Users.Name).Single())
+            //{
+
+            //}
             return Ok(userTest);
         }
         
-        // GET: api/Users/5
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetUsers([FromRoute] int id)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    var users = await _context.User.FindAsync(id);
-
-        //    if (users == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return Ok(users);
-        //}
 
         // PUT: api/Users/5
         [HttpPut("putAthletes/{id}")]
@@ -135,30 +140,22 @@ namespace SportsAspNet.Controllers
             return Ok(user);
         }
 
+//delete athlete details
         // DELETE: api/Users/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUsers([FromRoute] int id)
+        [HttpDelete]
+        [Route("deleteAthletes/{testId}/{userId}")]
+        public async Task<IActionResult> DeleteAthletes([FromRoute] int testId, [FromRoute] int userId)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var users = await _context.User.FindAsync(id);
+            var users = await _context.UserTestMap.Where(t => t.TestId == testId).FirstOrDefaultAsync(i => i.UserId == userId);
             if (users == null)
             {
                 return NotFound();
             }
 
-            _context.User.Remove(users);
+            _context.UserTestMap.Remove(users);
             await _context.SaveChangesAsync();
 
-            return Ok(users);
-        }
-
-        private bool UsersExists(int id)
-        {
-            return _context.User.Any(e => e.ID == id);
+            return Ok(userId);
         }
 
  //method to calculate the fitness rating

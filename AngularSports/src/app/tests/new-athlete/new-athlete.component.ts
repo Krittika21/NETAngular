@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { User } from '../shared/user.model';
-import { UserDetailsService } from '../shared/user-details.service';
-import { UserTypeMap } from '../shared/user-type-map.model';
-import { TestDetailsService } from '../shared/test-details.service';
+import { User } from '../../shared/user.model';
+import { UserDetailsService } from '../../shared/user-details.service';
+import { UserTypeMap } from '../../shared/user-type-map.model';
+import { TestDetailsService } from '../../shared/test-details.service';
 
 
 
@@ -17,6 +17,7 @@ athletes: UserTypeMap;
 users: Array<User>;
 isAvailable : boolean;
 test :any;
+currentTestId: number;
 
   constructor(private testDetailsService: TestDetailsService, private userDetailsService: UserDetailsService, private _router: Router, private _route: ActivatedRoute) 
   {
@@ -24,7 +25,8 @@ test :any;
   }
   
   ngOnInit() {
-    this.testDetailsService.getCurrentTest(+this._route.snapshot.paramMap.get("testId")).subscribe(
+    this.currentTestId = +this._route.snapshot.paramMap.get("testId");
+    this.testDetailsService.getCurrentTest(this.currentTestId).subscribe(
       (result) =>{
         this.test = result
         console.log(this.test);
@@ -41,7 +43,7 @@ test :any;
       userId: 0,
     }
 
-    this.userDetailsService.getAthletes().subscribe(
+    this.userDetailsService.getTestAthletes(this.currentTestId).subscribe(
       result  => {
         console.log("result");
         this.users = result as Array<User>;

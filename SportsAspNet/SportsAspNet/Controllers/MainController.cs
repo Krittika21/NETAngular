@@ -60,16 +60,16 @@ namespace SportsAspNet.Controllers
         [Route("getCurrentTestId/{id}")]
         public async Task<IActionResult> GetCurrentTest([FromRoute] int id)
        {
-            var userTest = await _context.UserTestMap.Include(u => u.Users).Where(u => u.TestId == id).ToListAsync();
-            return Ok(userTest);
+            var userTest = await _context.UserTestMap.Where(s => s.TestId == id).Include(s => s.Users).ToListAsync();
+            var test = await _context.TestTypeMap.Where(x => x.TestId == id).Include(x => x.TestTypes).Include(x=>x.TestDetail).ToListAsync();
+            return Ok(new {userTest, test });
         }
 
 //Get the current Id of the test for adding athletes as per that perticular Id
         [HttpGet]
         [Route("getTestWithAthlete/{TestID}/{userId}")]
         public async Task<IActionResult> getTestWithAthlete([FromRoute] int TestID, [FromRoute] int userId)
-     {
-            //var participants = await _context.UserTestMap.FirstOrDefaultAsync(u => u.UserId == userId);
+        {
             var testTypeMap = await _context.UserTestMap
                 .Where(s => s.TestId == TestID).Where(s =>s.UserId == userId)
                 .Include(s => s.Users)

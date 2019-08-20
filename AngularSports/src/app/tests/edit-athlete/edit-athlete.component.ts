@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { TestDetailsService } from '../shared/test-details.service';
-import { UserDetailsService } from '../shared/user-details.service';
+import { TestDetailsService } from '../../shared/test-details.service';
+import { UserDetailsService } from '../../shared/user-details.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserTypeMap } from '../shared/user-type-map.model';
-import { User } from '../shared/user.model';
+import { UserTypeMap } from '../../shared/user-type-map.model';
+import { User } from '../../shared/user.model';
 
 @Component({
   selector: 'app-edit-athlete',
@@ -15,6 +15,8 @@ export class EditAthleteComponent implements OnInit {
   users: Array<User>;
   isAvailable: boolean;
   test: UserTypeMap = new UserTypeMap();
+  currentTestId: number;
+  userId: number;
 
   constructor(private testDetailsService: TestDetailsService, private userDetailsService: UserDetailsService, private _router: Router, private _route: ActivatedRoute)
   {
@@ -30,15 +32,6 @@ export class EditAthleteComponent implements OnInit {
       }
     );      
 
-    /* this.athletes =
-    {
-      Name:null,
-      CTDistance: 0,
-      STTime: 0,
-      fitnessRating: null,
-      testId: +this._route.snapshot.paramMap.get("testId"),
-      userId: +this._route.snapshot.paramMap.get("userId"),
-    } */
   }
   onSubmit()
   {
@@ -48,8 +41,21 @@ export class EditAthleteComponent implements OnInit {
       },
       err => {
         console.log("error");
-      });
+    });
+  }
 
+  toDeleteTest()
+  {
+    debugger;
+    this.userDetailsService.deleteAthletes(this.test.testId, this.test.userId).subscribe(
+      result => {
+        this._router.navigate(['/athlete-details/' + this.test.testId])
+      },
+      
+      err => {
+        console.log("error");
+      }
+    );
   }
 }
 
